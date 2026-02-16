@@ -201,6 +201,40 @@ export function InventoryGrid() {
                 </motion.div>
 
             </div>
+
+            {/* QUICK FILTERS: pSEO Cross-linking */}
+            <div className="mt-24 pt-12 border-t border-white/5">
+                <h4 className="text-white font-bold text-lg mb-8 text-center uppercase tracking-widest">
+                    Quick Access <span className="text-[#4F46E5]">Vaults</span>
+                </h4>
+                <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-6 gap-4">
+                    {[
+                        { label: "Instagram 2010", path: "/buy/instagram/2010" },
+                        { label: "Instagram 2012", path: "/buy/instagram/2012" },
+                        { label: "Instagram 2015", path: "/buy/instagram/2015" },
+                        { label: "Instagram 2018", path: "/buy/instagram/2018" },
+                        { label: "Instagram 2020", path: "/buy/instagram/2020" },
+                        { label: "Instagram 2022", path: "/buy/instagram/2022" },
+                        { label: "Threads Special", path: "/buy/threads/2023" },
+                        { label: "Gmail Veteran", path: "/buy/gmail/2010" },
+                        { label: "Reddit Karma", path: "/buy/reddit/2015" },
+                        { label: "X Shadow-Proof", path: "/buy/x/2012" },
+                        { label: "FB Market-Ready", path: "/buy/facebook/2015" },
+                        { label: "TikTok Foundation", path: "/buy/tiktok/2018" }
+                    ].map((filter, i) => (
+                        <a
+                            key={i}
+                            href={filter.path}
+                            className="px-4 py-3 bg-[#0f0f0f] border border-white/5 rounded-xl text-xs text-gray-500 hover:text-white hover:border-[#4F46E5]/30 hover:bg-[#151515] transition-all text-center font-medium"
+                        >
+                            {filter.label}
+                        </a>
+                    ))}
+                </div>
+                <p className="mt-8 text-center text-[10px] text-gray-700 uppercase tracking-[0.2em]">
+                    Programmatic Access to 100+ Asset Combinations
+                </p>
+            </div>
         </section>
     )
 }
