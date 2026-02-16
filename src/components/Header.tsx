@@ -59,6 +59,9 @@ export function Header() {
                     <Link href="/faq" onClick={(e) => { e.preventDefault(); document.querySelector('.group-open\\:rotate-180')?.scrollIntoView({ behavior: 'smooth' }) }} className="text-sm font-medium text-gray-400 hover:text-white transition-colors">
                         FAQ
                     </Link>
+                    <Link href="/tools/2fa-code-generator" className="text-xs font-bold px-3 py-1.5 rounded-full bg-[#4F46E5]/10 text-[#4F46E5] border border-[#4F46E5]/20 hover:bg-[#4F46E5] hover:text-white transition-all">
+                        2FA TOOL
+                    </Link>
                 </nav>
 
                 {/* Action */}
