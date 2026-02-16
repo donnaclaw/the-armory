@@ -1,0 +1,206 @@
+'use client'
+
+import { motion } from "framer-motion"
+import { Check, Shield, Instagram, ArrowRight, Lock, Mail, Users, Linkedin, Youtube, Smartphone } from "lucide-react"
+import { Button } from "@/components/ui/Button"
+import { useState } from "react"
+import { cn } from "@/lib/utils"
+
+// Tab Data for Multi-Platform
+const PLATFORMS = [
+    { id: "facebook", label: "Facebook", desc: "Marketplace-ready accounts with history.", icon: Users },
+    { id: "tiktok", label: "TikTok", desc: "Creator Fund eligible & region-unlocked.", icon: Smartphone },
+    { id: "x", label: "X (Twitter)", desc: "Aged profiles resistant to shadowbans.", icon: Users }, // Using Users as generic social icon if exact X icon unavailable, or just text
+    { id: "reddit", label: "Reddit", desc: "High-karma accounts for community marketing.", seo: "Reddit accounts with karma" },
+    { id: "snapchat", label: "Snapchat", desc: "High-score accounts with active history.", icon: Smartphone },
+    { id: "gmail", label: "Gmail", desc: "Business-grade email infrastructure.", seo: "Aged Gmail for business" }
+]
+
+export function InventoryGrid() {
+    const [activeTab, setActiveTab] = useState("facebook")
+
+    return (
+        <section id="account-types" className="py-20 px-4 max-w-7xl mx-auto">
+            <div className="mb-16 text-center space-y-4">
+                <h2 className="text-3xl md:text-5xl font-black text-white tracking-tighter uppercase">
+                    Elite Asset <span className="text-[#4F46E5] text-transparent bg-clip-text bg-gradient-to-r from-[#4F46E5] to-purple-400">Inventory</span>
+                </h2>
+                <p className="text-gray-400 max-w-2xl mx-auto text-lg">
+                    Secure, verified, and warmed. Select your operation capability level.
+                </p>
+            </div>
+
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+
+                {/* CARD 1: IG AGED */}
+                <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    className="relative group bg-[#0B0B0B] border border-white/10 rounded-3xl p-8 hover:border-[#4F46E5]/50 transition-colors duration-300 flex flex-col"
+                >
+                    <div className="absolute top-4 right-4 bg-[#4F46E5]/10 text-[#4F46E5] text-xs font-bold px-3 py-1 rounded-full border border-[#4F46E5]/20 flex items-center gap-1">
+                        <Shield className="w-3 h-3" />
+                        OGE + 2FA
+                    </div>
+
+                    <div className="mb-6">
+                        <Instagram className="w-12 h-12 text-white mb-4" />
+                        <h3 className="text-2xl font-bold text-white mb-2">Instagram Heritage</h3>
+                        <p className="text-gray-400 text-sm">2010 — 2026</p>
+                    </div>
+
+                    <div className="flex-1 space-y-6">
+                        <p className="text-gray-400 leading-relaxed text-sm">
+                            Secure <strong>High-Trust Aged Instagram Accounts</strong> designed for longevity. Perfect for brand authority and bypassing new-account filters.
+                        </p>
+
+                        <ul className="space-y-3">
+                            {[
+                                "Original Email (OGE) Access",
+                                "2FA Codes Included",
+                                "Phone Verified (PVA)",
+                                "Warm-up Guide Included"
+                            ].map((item, i) => (
+                                <li key={i} className="flex items-center gap-3 text-sm text-gray-300">
+                                    <Check className="w-4 h-4 text-[#4F46E5] shrink-0" />
+                                    {item}
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+
+                    <div className="mt-8 pt-6 border-t border-white/5">
+                        <div className="flex items-end justify-between mb-4">
+                            <div className="text-3xl font-bold text-white">$5.50</div>
+                            <div className="text-xs text-gray-500 mb-1">Starting Price</div>
+                        </div>
+                        <Button className="w-full group-hover:bg-[#4F46E5] transition-colors" target="_blank" onClick={() => window.open('https://t.me/luke_of', '_blank')}>
+                            SECURE ASSETS
+                            <ArrowRight className="w-4 h-4 ml-2" />
+                        </Button>
+                    </div>
+                </motion.div>
+
+                {/* CARD 2: THREADS */}
+                <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.1 }}
+                    className="relative group bg-gradient-to-b from-[#1a1a1a] to-[#0B0B0B] border border-white/10 rounded-3xl p-8 hover:border-white/30 transition-colors duration-300 flex flex-col"
+                >
+                    <div className="absolute top-4 right-4 bg-white/10 text-white text-xs font-bold px-3 py-1 rounded-full border border-white/20">
+                        PRE-WARMED
+                    </div>
+
+                    <div className="mb-6">
+                        <div className="w-12 h-12 rounded-xl bg-white text-black flex items-center justify-center font-black text-2xl mb-4">@</div>
+                        <h3 className="text-2xl font-bold text-white mb-2">Threads Accelerator</h3>
+                        <p className="text-gray-400 text-sm">Connected Ecosystem</p>
+                    </div>
+
+                    <div className="flex-1 space-y-6">
+                        <p className="text-gray-400 leading-relaxed text-sm">
+                            Instant credibility with <strong>Threads accounts connected to aged IG</strong> profiles. Comes with custom bio, profile picture, and initial activity history.
+                        </p>
+
+                        <ul className="space-y-3">
+                            {[
+                                "Connected to 2010-2018 IG",
+                                "Custom Name & Bio Setup",
+                                "Profile Picture Installed",
+                                "Initial Follower Seeding"
+                            ].map((item, i) => (
+                                <li key={i} className="flex items-center gap-3 text-sm text-gray-300">
+                                    <Check className="w-4 h-4 text-white shrink-0" />
+                                    {item}
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+
+                    <div className="mt-8 pt-6 border-t border-white/5">
+                        <div className="flex items-end justify-between mb-4">
+                            <div className="text-xl font-bold text-white">Custom Quote</div>
+                            <div className="text-xs text-gray-500 mb-1">Project Based</div>
+                        </div>
+                        <Button variant="outline" className="w-full hover:bg-white hover:text-black border-white/20" onClick={() => window.open('https://t.me/luke_of', '_blank')}>
+                            REQUEST ACCOUNTS
+                            <ArrowRight className="w-4 h-4 ml-2" />
+                        </Button>
+                    </div>
+                </motion.div>
+
+                {/* CARD 3: MULTI-PLATFORM */}
+                <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.2 }}
+                    className="relative group bg-[#0B0B0B] border border-white/10 rounded-3xl p-8 hover:border-[#4F46E5]/30 transition-colors duration-300 flex flex-col"
+                >
+                    <div className="mb-6">
+                        <div className="flex items-center gap-2 mb-4">
+                            <div className="w-3 h-3 rounded-full bg-[#4F46E5]" />
+                            <div className="w-3 h-3 rounded-full bg-pink-500" />
+                            <div className="w-3 h-3 rounded-full bg-blue-500" />
+                        </div>
+                        <h3 className="text-2xl font-bold text-white mb-2">Multi-Platform</h3>
+                        <p className="text-gray-400 text-sm">Diversified Assets</p>
+                    </div>
+
+                    <div className="flex-1 flex flex-col">
+                        <div className="flex flex-wrap gap-2 mb-6">
+                            {PLATFORMS.map((p) => (
+                                <button
+                                    key={p.id}
+                                    onClick={() => setActiveTab(p.id)}
+                                    className={cn(
+                                        "px-3 py-1 rounded-md text-xs font-bold transition-all border",
+                                        activeTab === p.id
+                                            ? "bg-white text-black border-white"
+                                            : "bg-transparent text-gray-500 border-transparent hover:text-white"
+                                    )}
+                                >
+                                    {p.label}
+                                </button>
+                            ))}
+                        </div>
+
+                        <div className="flex-1 min-h-[140px]">
+                            {PLATFORMS.map((p) => activeTab === p.id && (
+                                <motion.div
+                                    key={p.id}
+                                    initial={{ opacity: 0, x: 10 }}
+                                    animate={{ opacity: 1, x: 0 }}
+                                    className="space-y-4"
+                                >
+                                    <h4 className="text-white font-bold text-lg">{p.label} Assets</h4>
+                                    <p className="text-gray-400 text-sm leading-relaxed">
+                                        {p.desc} {p.seo && <span className="opacity-0 w-0 h-0 overflow-hidden absolute">{p.seo}</span>}
+                                    </p>
+                                    {p.seo && (
+                                        <p className="text-[#4F46E5] text-xs font-mono mt-2">
+                                            FEATURE: {p.seo}
+                                        </p>
+                                    )}
+                                    {!p.seo && p.id === 'tiktok' && <p className="text-[#4F46E5] text-xs font-mono mt-2">FEATURE: PVA (Phone Verified Accounts)</p>}
+                                </motion.div>
+                            ))}
+                        </div>
+                    </div>
+
+                    <div className="mt-8 pt-6 border-t border-white/5">
+                        <div className="flex items-end justify-between mb-4">
+                            <div className="text-xl font-bold text-white">Varies</div>
+                            <div className="text-xs text-gray-500 mb-1">Check Catalog</div>
+                        </div>
+                        <Button variant="outline" className="w-full hover:border-[#4F46E5] hover:text-[#4F46E5]" onClick={() => window.open('https://t.me/luke_of', '_blank')}>
+                            OPEN CATALOG
+                            <ArrowRight className="w-4 h-4 ml-2" />
+                        </Button>
+                    </div>
+                </motion.div>
+
+            </div>
+        </section>
+    )
+}
