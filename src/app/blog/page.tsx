@@ -12,54 +12,56 @@ const ARTICLES = [
     {
         slug: "warmup-rule-2026",
         title: "The 24-Hour Warmup Rule: How to Prevent Instant Bans in 2026.",
-        excerpt: "Master the critical first 24 hours of account deployment to ensure 100% survival rates.",
-        category: "Safety",
+        desc: "Master the critical first 24 hours of account deployment to ensure 100% survival rates.",
+        tag: "Safety",
         icon: Shield,
         date: "Feb 17, 2026"
     },
     {
         slug: "threads-vs-x-ofm",
         title: "Threads vs. Twitter/X: Which strategy converts better for OFM?",
-        excerpt: "A data-driven comparison of conversion rates and account longevity for model management.",
-        category: "Strategy",
+        desc: "A data-driven comparison of conversion rates and account longevity for model management.",
+        tag: "Strategy",
         icon: Zap,
         date: "Feb 17, 2026"
     },
     {
         slug: "shadowban-recovery-guide",
         title: "Shadowban Recovery: How to save a flagged account.",
-        excerpt: "Stop wasting assets. Learn the technical verification steps to lift flags and restore reach.",
-        category: "Recovery",
+        desc: "Stop wasting assets. Learn the technical verification steps to lift flags and restore reach.",
+        tag: "Recovery",
         icon: Lock,
         date: "Feb 16, 2026"
     },
     {
         slug: "proxy-guide-instagram",
         title: "The Proxy Guide: Residential vs. 4G Proxies for Instagram.",
-        excerpt: "Why your choice of IP infrastructure is the deciding factor in account trust scoring.",
-        category: "Infrastructure",
+        desc: "Why your choice of IP infrastructure is the deciding factor in account trust scoring.",
+        tag: "Infrastructure",
         icon: Shield,
         date: "Feb 16, 2026"
     },
     {
         slug: "aged-account-scaling-100",
         title: "Aged Account Scaling: Moving from 1 to 100 Profitable Assets.",
-        excerpt: "The roadmap for agencies scaling mass outreach without increasing detection risk.",
-        category: "Scaling",
+        desc: "The roadmap for agencies scaling mass outreach without increasing detection risk.",
+        tag: "Scaling",
         icon: Zap,
         date: "Feb 15, 2026"
     },
     {
         slug: "bypass-instagram-ai-detection",
         title: "How to bypass Instagram 2026 AI-detection using aged accounts.",
-        excerpt: "Learn why legacy metadata is the only way to survive the new neural-behavioral filters.",
-        category: "Security",
+        desc: "Learn why legacy metadata is the only way to survive the new neural-behavioral filters.",
+        tag: "Security",
         icon: Shield,
         date: "Feb 16, 2026"
     },
     {
         slug: "anti-detect-browsers-guide",
         title: "The ultimate guide to Anti-detect browsers for account management.",
+        desc: "Everything you need to know about fingerprinting, proxy setup, and maintaining separate digital identities.",
+        icon: Zap,
         tag: "Infrastructure"
     },
     {
