@@ -74,7 +74,7 @@ export function InventoryGrid() {
                             <div className="text-3xl font-bold text-white">$5.50</div>
                             <div className="text-xs text-gray-500 mb-1">Starting Price</div>
                         </div>
-                        <Button className="w-full group-hover:bg-[#4F46E5] transition-colors" target="_blank" onClick={() => window.open('https://t.me/luke_of', '_blank')}>
+                        <Button className="w-full group-hover:bg-[#4F46E5] transition-colors" onClick={() => window.open('https://t.me/luke_of', '_blank')}>
                             SECURE ASSETS
                             <ArrowRight className="w-4 h-4 ml-2" />
                         </Button>
