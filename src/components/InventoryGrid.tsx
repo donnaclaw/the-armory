@@ -10,7 +10,7 @@ import { cn } from "@/lib/utils"
 const PLATFORMS = [
     { id: "facebook", label: "Facebook", desc: "Marketplace-ready accounts with history.", icon: Users },
     { id: "tiktok", label: "TikTok", desc: "Creator Fund eligible & region-unlocked.", icon: Smartphone },
-    { id: "x", label: "X (Twitter)", desc: "Aged profiles resistant to shadowbans.", icon: Users }, // Using Users as generic social icon if exact X icon unavailable, or just text
+    { id: "x", label: "X (Twitter)", desc: "Aged profiles resistant to shadowbans.", icon: Users },
     { id: "reddit", label: "Reddit", desc: "High-karma accounts for community marketing.", seo: "Reddit accounts with karma" },
     { id: "snapchat", label: "Snapchat", desc: "High-score accounts with active history.", icon: Smartphone },
     { id: "gmail", label: "Gmail", desc: "Business-grade email infrastructure.", seo: "Aged Gmail for business" }
@@ -19,6 +19,16 @@ const PLATFORMS = [
 export function InventoryGrid() {
     const [activeTab, setActiveTab] = useState("facebook")
     const [agreed, setAgreed] = useState(true)
+
+    // Platform specific stock values
+    const STOCK_STATUS: Record<string, string> = {
+        facebook: "+1k available",
+        tiktok: "510 left",
+        x: "227 left",
+        reddit: "Verified Supply",
+        snapchat: "High Vol",
+        gmail: "High Availability"
+    }
 
     return (
         <section id="account-types" className="py-20 px-4 max-w-7xl mx-auto">
@@ -55,9 +65,18 @@ export function InventoryGrid() {
                     whileInView={{ opacity: 1, y: 0 }}
                     className="relative group bg-[#0B0B0B] border border-white/10 rounded-3xl p-8 hover:border-[#4F46E5]/50 transition-colors duration-300 flex flex-col"
                 >
-                    <div className="absolute top-4 right-4 bg-[#4F46E5]/10 text-[#4F46E5] text-xs font-bold px-3 py-1 rounded-full border border-[#4F46E5]/20 flex items-center gap-1">
-                        <Shield className="w-3 h-3" />
-                        OGE + 2FA
+                    <div className="absolute top-4 right-4 flex flex-col items-end gap-2">
+                        <div className="bg-[#4F46E5]/10 text-[#4F46E5] text-xs font-bold px-3 py-1 rounded-full border border-[#4F46E5]/20 flex items-center gap-1">
+                            <Shield className="w-3 h-3" />
+                            OGE + 2FA
+                        </div>
+                        <motion.div
+                            animate={{ opacity: [1, 0.5, 1] }}
+                            transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+                            className="bg-orange-500/10 text-orange-500 text-[10px] font-black px-2 py-0.5 rounded border border-orange-500/20 uppercase tracking-tighter"
+                        >
+                            834 IN STOCK
+                        </motion.div>
                     </div>
 
                     <div className="mb-6">
@@ -84,11 +103,14 @@ export function InventoryGrid() {
                                 </li>
                             ))}
                         </ul>
+                        <p className="text-[10px] text-gray-500 font-mono leading-tight mt-4 uppercase tracking-widest pt-4 border-t border-white/5">
+                            Price scales by vintage (2010-2026). Bulk discounts apply.
+                        </p>
                     </div>
 
                     <div className="mt-8 pt-6 border-t border-white/5">
                         <div className="flex items-end justify-between mb-4">
-                            <div className="text-3xl font-bold text-white">$5.50</div>
+                            <div className="text-3xl font-bold text-white">$2.00</div>
                             <div className="text-xs text-gray-500 mb-1">Starting Price</div>
                         </div>
                         <Button
@@ -111,8 +133,13 @@ export function InventoryGrid() {
                     transition={{ delay: 0.1 }}
                     className="relative group bg-gradient-to-b from-[#1a1a1a] to-[#0B0B0B] border border-white/10 rounded-3xl p-8 hover:border-white/30 transition-colors duration-300 flex flex-col"
                 >
-                    <div className="absolute top-4 right-4 bg-white/10 text-white text-xs font-bold px-3 py-1 rounded-full border border-white/20">
-                        PRE-WARMED
+                    <div className="absolute top-4 right-4 flex flex-col items-end gap-2">
+                        <div className="bg-white/10 text-white text-xs font-bold px-3 py-1 rounded-full border border-white/20">
+                            PRE-WARMED
+                        </div>
+                        <div className="bg-white/5 text-gray-400 text-[9px] font-bold px-2 py-0.5 rounded border border-white/10 uppercase tracking-tighter">
+                            1,850 REMAINING THIS MONTH
+                        </div>
                     </div>
 
                     <div className="mb-6">
@@ -214,6 +241,15 @@ export function InventoryGrid() {
                                         </p>
                                     )}
                                     {!p.seo && p.id === 'tiktok' && <p className="text-[#4F46E5] text-xs font-mono mt-2">FEATURE: PVA (Phone Verified Accounts)</p>}
+
+                                    <div className="mt-4 pt-4 border-t border-white/5">
+                                        <div className="flex items-center gap-2">
+                                            <div className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse" />
+                                            <span className="text-[10px] text-gray-500 font-bold uppercase tracking-widest">
+                                                Stock Status: <span className="text-white">{STOCK_STATUS[p.id] || "Available"}</span>
+                                            </span>
+                                        </div>
+                                    </div>
                                 </motion.div>
                             ))}
                         </div>
@@ -272,6 +308,12 @@ export function InventoryGrid() {
                 </div>
                 <p className="mt-8 text-center text-[10px] text-gray-700 uppercase tracking-[0.2em]">
                     Programmatic Access to 100+ Asset Combinations
+                </p>
+            </div>
+
+            <div className="mt-12 text-center">
+                <p className="text-[10px] text-gray-600 font-mono uppercase tracking-[0.3em]">
+                    Inventory last synchronized: {new Date().toLocaleTimeString()} via Global Node.
                 </p>
             </div>
         </section>
