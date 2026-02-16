@@ -10,17 +10,56 @@ export const metadata: Metadata = {
 
 const ARTICLES = [
     {
+        slug: "warmup-rule-2026",
+        title: "The 24-Hour Warmup Rule: How to Prevent Instant Bans in 2026.",
+        excerpt: "Master the critical first 24 hours of account deployment to ensure 100% survival rates.",
+        category: "Safety",
+        icon: Shield,
+        date: "Feb 17, 2026"
+    },
+    {
+        slug: "threads-vs-x-ofm",
+        title: "Threads vs. Twitter/X: Which strategy converts better for OFM?",
+        excerpt: "A data-driven comparison of conversion rates and account longevity for model management.",
+        category: "Strategy",
+        icon: Zap,
+        date: "Feb 17, 2026"
+    },
+    {
+        slug: "shadowban-recovery-guide",
+        title: "Shadowban Recovery: How to save a flagged account.",
+        excerpt: "Stop wasting assets. Learn the technical verification steps to lift flags and restore reach.",
+        category: "Recovery",
+        icon: Lock,
+        date: "Feb 16, 2026"
+    },
+    {
+        slug: "proxy-guide-instagram",
+        title: "The Proxy Guide: Residential vs. 4G Proxies for Instagram.",
+        excerpt: "Why your choice of IP infrastructure is the deciding factor in account trust scoring.",
+        category: "Infrastructure",
+        icon: Shield,
+        date: "Feb 16, 2026"
+    },
+    {
+        slug: "aged-account-scaling-100",
+        title: "Aged Account Scaling: Moving from 1 to 100 Profitable Assets.",
+        excerpt: "The roadmap for agencies scaling mass outreach without increasing detection risk.",
+        category: "Scaling",
+        icon: Zap,
+        date: "Feb 15, 2026"
+    },
+    {
         slug: "bypass-instagram-ai-detection",
         title: "How to bypass Instagram 2026 AI-detection using aged accounts.",
-        desc: "Master the art of social media trust-scores and learn why account heritage is the primary signal for Instagram's newest neural filters.",
+        excerpt: "Learn why legacy metadata is the only way to survive the new neural-behavioral filters.",
+        category: "Security",
         icon: Shield,
-        tag: "Technical Guide"
+        date: "Feb 16, 2026"
     },
     {
         slug: "anti-detect-browsers-guide",
         title: "The ultimate guide to Anti-detect browsers for account management.",
-        desc: "Everything you need to know about fingerprinting, proxy setup, and maintaining separate digital identities without triggering security flags.",
-        icon: Zap,
         tag: "Infrastructure"
     },
     {
@@ -60,7 +99,7 @@ export default function BlogIndex() {
                         >
                             <div className="mb-6">
                                 <div className="w-12 h-12 rounded-xl bg-[#4F46E5]/10 text-[#4F46E5] flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-                                    <article.icon className="w-6 h-6" />
+                                    {article.icon && <article.icon className="w-4 h-4 text-white" />}
                                 </div>
                                 <div className="text-[10px] font-bold text-[#4F46E5] uppercase tracking-widest mb-2">{article.tag}</div>
                                 <h2 className="text-xl font-bold text-white mb-3 group-hover:text-[#4F46E5] transition-colors leading-tight">
