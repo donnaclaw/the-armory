@@ -6,32 +6,47 @@ import Link from "next/link"
 import { Menu, X, MessageCircle, Shield } from "lucide-react"
 import { Button } from "@/components/ui/Button"
 import { cn } from "@/lib/utils"
+import { usePathname, useRouter } from "next/navigation"
 
 export function Header() {
     const [scrolled, setScrolled] = useState(false)
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
     const { scrollY } = useScroll()
+    const pathname = usePathname()
+    const router = useRouter()
 
     useMotionValueEvent(scrollY, "change", (latest) => {
         setScrolled(latest > 20)
     })
 
-    // Smooth scroll handler
-    const scrollToInventory = (e: React.MouseEvent) => {
+    const handleScrollLink = (e: React.MouseEvent, targetId: string) => {
         e.preventDefault()
         setMobileMenuOpen(false)
-        const element = document.getElementById('account-types')
-        if (element) {
-            element.scrollIntoView({ behavior: 'smooth' })
+
+        if (pathname === '/') {
+            const element = document.getElementById(targetId)
+            if (element) {
+                element.scrollIntoView({ behavior: 'smooth' })
+            }
+        } else {
+            router.push(`/#${targetId}`)
         }
     }
 
     const navLinks = [
-        { name: "IG AGED", onClick: scrollToInventory },
-        { name: "THREADS CUSTOM", onClick: scrollToInventory },
-        { name: "OTHER PLATFORMS", onClick: scrollToInventory },
+        { name: "IG AGED", onClick: (e: React.MouseEvent) => handleScrollLink(e, 'account-types') },
+        { name: "THREADS CUSTOM", onClick: (e: React.MouseEvent) => handleScrollLink(e, 'account-types') },
+        { name: "OTHER PLATFORMS", onClick: (e: React.MouseEvent) => handleScrollLink(e, 'account-types') },
         { name: "ALPHA ACADEMY", href: "/blog" },
-        { name: "FAQ", href: "/faq", onClick: (e: React.MouseEvent) => { e.preventDefault(); setMobileMenuOpen(false); document.querySelector('.group-open\\:rotate-180')?.scrollIntoView({ behavior: 'smooth' }) } },
+        {
+            name: "FAQ", href: "/faq", onClick: (e: React.MouseEvent) => {
+                if (pathname === '/') {
+                    e.preventDefault()
+                    setMobileMenuOpen(false)
+                    document.querySelector('.group-open\\:rotate-180')?.scrollIntoView({ behavior: 'smooth' })
+                }
+            }
+        },
     ]
 
     return (

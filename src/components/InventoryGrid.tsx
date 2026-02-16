@@ -18,6 +18,7 @@ const PLATFORMS = [
 
 export function InventoryGrid() {
     const [activeTab, setActiveTab] = useState("facebook")
+    const [agreed, setAgreed] = useState(true)
 
     return (
         <section id="account-types" className="py-20 px-4 max-w-7xl mx-auto">
@@ -28,6 +29,22 @@ export function InventoryGrid() {
                 <p className="text-gray-400 max-w-2xl mx-auto text-lg">
                     Secure, verified, and warmed. Select your operation capability level.
                 </p>
+
+                {/* Active Consent Hack */}
+                <div className="flex items-center justify-center gap-2 mt-8">
+                    <div className="flex items-center space-x-2 bg-black/40 p-2 px-4 rounded-lg border border-white/5 backdrop-blur-sm">
+                        <input
+                            type="checkbox"
+                            id="terms-inventory"
+                            className="w-4 h-4 accent-[#4F46E5] bg-gray-800 border-gray-600 rounded focus:ring-[#4F46E5] cursor-pointer"
+                            checked={agreed}
+                            onChange={(e) => setAgreed(e.target.checked)}
+                        />
+                        <label htmlFor="terms-inventory" className="text-xs text-gray-400 select-none cursor-pointer">
+                            I agree to the <a href="/terms" className="text-[#4F46E5] hover:underline" target="_blank">Terms</a> and <a href="/refund-policy" className="text-[#4F46E5] hover:underline" target="_blank">Replacement Policy</a>.
+                        </label>
+                    </div>
+                </div>
             </div>
 
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
@@ -74,7 +91,13 @@ export function InventoryGrid() {
                             <div className="text-3xl font-bold text-white">$5.50</div>
                             <div className="text-xs text-gray-500 mb-1">Starting Price</div>
                         </div>
-                        <Button className="w-full group-hover:bg-[#4F46E5] transition-colors" onClick={() => window.open('https://t.me/luke_of', '_blank')}>
+                        <Button
+                            className={cn(
+                                "w-full transition-all duration-300",
+                                agreed ? "bg-[#4F46E5] hover:bg-[#4338CA] shadow-[0_0_20px_rgba(79,70,229,0.3)]" : "opacity-50 pointer-events-none grayscale"
+                            )}
+                            onClick={() => window.open('https://t.me/luke_of', '_blank')}
+                        >
                             SECURE ASSETS
                             <ArrowRight className="w-4 h-4 ml-2" />
                         </Button>
@@ -123,7 +146,15 @@ export function InventoryGrid() {
                             <div className="text-xl font-bold text-white">Custom Quote</div>
                             <div className="text-xs text-gray-500 mb-1">Project Based</div>
                         </div>
-                        <Button variant="outline" className="w-full hover:bg-white hover:text-black border-white/20" onClick={() => window.open('https://t.me/luke_of', '_blank')}>
+                        <Button
+                            variant="outline"
+                            className={cn(
+                                "w-full transition-all duration-300 border-white/20 hover:bg-white hover:text-black",
+                                agreed && "shadow-[0_0_15px_rgba(255,255,255,0.1)] border-white/40"
+                            )}
+                            disabled={!agreed}
+                            onClick={() => window.open('https://t.me/luke_of', '_blank')}
+                        >
                             REQUEST ACCOUNTS
                             <ArrowRight className="w-4 h-4 ml-2" />
                         </Button>
@@ -193,7 +224,15 @@ export function InventoryGrid() {
                             <div className="text-xl font-bold text-white">Varies</div>
                             <div className="text-xs text-gray-500 mb-1">Check Catalog</div>
                         </div>
-                        <Button variant="outline" className="w-full hover:border-[#4F46E5] hover:text-[#4F46E5]" onClick={() => window.open('https://t.me/luke_of', '_blank')}>
+                        <Button
+                            variant="outline"
+                            className={cn(
+                                "w-full transition-all duration-300 border-white/20 hover:border-[#4F46E5] hover:text-[#4F46E5]",
+                                agreed && "shadow-[0_0_15px_rgba(79,70,229,0.1)] border-[#4F46E5]/40"
+                            )}
+                            disabled={!agreed}
+                            onClick={() => window.open('https://t.me/luke_of', '_blank')}
+                        >
                             OPEN CATALOG
                             <ArrowRight className="w-4 h-4 ml-2" />
                         </Button>

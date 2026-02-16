@@ -7,7 +7,7 @@ import { useState } from "react"
 import { cn } from "@/lib/utils"
 
 export function Hero() {
-    const [agreed, setAgreed] = useState(false)
+    const [agreed, setAgreed] = useState(true)
 
     const scrollToInventory = () => {
         document.getElementById('account-types')?.scrollIntoView({ behavior: 'smooth' })
@@ -122,10 +122,13 @@ export function Hero() {
                             </label>
                         </div>
 
-                        <div className={cn("w-full transition-opacity", !agreed && "opacity-50 pointer-events-none grayscale")}>
+                        <div className={cn("w-full transition-all duration-500", !agreed && "opacity-50 pointer-events-none grayscale")}>
                             <div className="flex flex-col md:flex-row gap-4 justify-center w-full">
                                 <Button
-                                    className="h-14 md:h-14 text-base px-8 w-full md:w-auto md:min-w-[240px]"
+                                    className={cn(
+                                        "h-14 md:h-14 text-base px-8 w-full md:w-auto md:min-w-[240px] transition-all duration-300",
+                                        agreed && "shadow-[0_0_20px_rgba(79,70,229,0.4)] border-[#4F46E5] bg-[#4F46E5]"
+                                    )}
                                     variant="primary"
                                     disabled={!agreed}
                                     onClick={scrollToInventory}
@@ -138,10 +141,10 @@ export function Hero() {
                                     className="h-14 md:h-14 text-base px-8 w-full md:w-auto md:min-w-[240px] border-white/10 hover:bg-white/5"
                                     variant="outline"
                                     disabled={!agreed}
-                                    onClick={() => window.open('https://discord.gg/luke_of', '_blank')}
+                                    onClick={() => window.open('https://t.me/luke_of', '_blank')}
                                 >
                                     <MessageCircle className="w-4 h-4 mr-2" />
-                                    JOIN DISCORD
+                                    JOIN TELEGRAM
                                 </Button>
                             </div>
                         </div>

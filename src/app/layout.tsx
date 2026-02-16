@@ -20,6 +20,7 @@ export const metadata: Metadata = {
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { LiveActivity } from "@/components/LiveActivity";
+import { MobileStickyCTA } from "@/components/MobileStickyCTA";
 
 export default function RootLayout({
   children,
@@ -32,8 +33,9 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-[#0B0B0B] text-white`}
       >
         <Header />
-        {children}
+        <main>{children}</main>
         <LiveActivity />
+        <MobileStickyCTA />
         <Footer />
       </body>
     </html>

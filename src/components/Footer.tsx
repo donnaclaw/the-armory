@@ -50,6 +50,20 @@ export function Footer() {
                 {/* COL 3: SUPPORT & SOCIAL */}
                 <div className="space-y-6">
                     <h4 className="text-white font-bold tracking-widest uppercase text-xs">Support & Payment</h4>
+
+                    {/* Active Consent Hack */}
+                    <div className="flex items-center space-x-2 bg-white/5 p-2 rounded-lg border border-white/5 w-fit">
+                        <input
+                            type="checkbox"
+                            id="terms-footer"
+                            className="w-3.5 h-3.5 accent-[#4F46E5] bg-gray-800 border-gray-600 rounded cursor-pointer"
+                            defaultChecked={true}
+                        />
+                        <label htmlFor="terms-footer" className="text-[10px] text-gray-400 select-none cursor-pointer">
+                            I verify I represent a legitimate marketing operation.
+                        </label>
+                    </div>
+
                     <div className="flex flex-col gap-3">
                         <a href="https://t.me/luke_of" target="_blank" className="flex items-center gap-2 text-gray-400 hover:text-white transition-colors group">
                             <Send className="w-4 h-4 text-[#4F46E5] group-hover:translate-x-1 transition-transform" />

@@ -18,6 +18,9 @@ export default function TermsPage() {
                 <section className="space-y-6">
                     <h2 className="text-xl font-bold text-white">1. ACCEPTANCE OF TERMS</h2>
                     <p>By accessing The Armory and purchasing any digital assets, you agree to be bound by these Terms of Service. If you do not agree, do not proceed with any transaction.</p>
+                    <p className="text-[#4F46E5] font-bold text-sm bg-[#4F46E5]/5 border border-[#4F46E5]/20 p-4 rounded-lg">
+                        🛡️ NOTE: By proceeding with a purchase, you acknowledge and agree to our pre-selected terms of service.
+                    </p>
                 </section>
 
                 <section className="space-y-6">
