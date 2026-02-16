@@ -4,6 +4,7 @@ import { motion } from "framer-motion"
 import { Button } from "@/components/ui/Button"
 import { ShieldCheck, ArrowRight, Instagram, MessageCircle, Twitter } from "lucide-react"
 import { useState } from "react"
+import { cn } from "@/lib/utils"
 
 export function Hero() {
     const [agreed, setAgreed] = useState(false)
@@ -103,9 +104,9 @@ export function Hero() {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.8, delay: 0.4 }}
-                    className="pt-8"
+                    className="pt-8 flex flex-col items-center justify-center w-full"
                 >
-                    <div className="flex flex-col items-center gap-6">
+                    <div className="flex flex-col items-center gap-6 w-full max-w-lg mx-auto">
 
                         {/* Clickwrap */}
                         <div className="flex items-center space-x-2 bg-black/40 p-2 rounded-lg border border-white/5 backdrop-blur-sm">
@@ -121,10 +122,10 @@ export function Hero() {
                             </label>
                         </div>
 
-                        <div className={!agreed ? "opacity-50 pointer-events-none grayscale transition-opacity" : "transition-opacity"}>
+                        <div className={cn("w-full transition-opacity", !agreed && "opacity-50 pointer-events-none grayscale")}>
                             <div className="flex flex-col md:flex-row gap-4 justify-center w-full">
                                 <Button
-                                    className="h-14 text-base px-8 min-w-[240px]"
+                                    className="h-14 md:h-14 text-base px-8 w-full md:w-auto md:min-w-[240px]"
                                     variant="primary"
                                     disabled={!agreed}
                                     onClick={scrollToInventory}
@@ -134,7 +135,7 @@ export function Hero() {
                                 </Button>
 
                                 <Button
-                                    className="h-14 text-base px-8 min-w-[240px] border-white/10 hover:bg-white/5"
+                                    className="h-14 md:h-14 text-base px-8 w-full md:w-auto md:min-w-[240px] border-white/10 hover:bg-white/5"
                                     variant="outline"
                                     disabled={!agreed}
                                     onClick={() => window.open('https://discord.gg/luke_of', '_blank')}

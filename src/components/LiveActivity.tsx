@@ -30,7 +30,7 @@ export function LiveActivity() {
     }, [])
 
     return (
-        <div className="fixed bottom-8 left-8 z-50 pointer-events-none">
+        <div className="fixed bottom-5 left-5 md:bottom-8 md:left-8 z-50 pointer-events-none">
             <AnimatePresence mode="wait">
                 {isVisible && (
                     <motion.div
@@ -39,17 +39,17 @@ export function LiveActivity() {
                         animate={{ opacity: 1, x: 0, scale: 1 }}
                         exit={{ opacity: 0, x: -20, scale: 0.9 }}
                         transition={{ duration: 0.5, ease: "easeOut" }}
-                        className="bg-[#0f0f0f]/80 backdrop-blur-xl border border-white/10 rounded-2xl p-4 flex items-center gap-4 shadow-2xl shadow-[#4F46E5]/10 max-w-sm pointer-events-auto"
+                        className="live-activity-toast bg-[#0b0b0b]/80 backdrop-blur-xl border border-white/10 rounded-2xl p-3 md:p-4 flex items-center gap-3 md:gap-4 shadow-2xl shadow-[#4F46E5]/10 max-w-[280px] md:max-w-sm pointer-events-auto"
                     >
-                        <div className="w-10 h-10 rounded-full bg-[#4F46E5]/20 flex items-center justify-center shrink-0">
-                            <Zap className="w-5 h-5 text-[#4F46E5] animate-pulse" />
+                        <div className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-[#4F46E5]/20 flex items-center justify-center shrink-0">
+                            <Zap className="w-4 h-4 md:w-5 md:h-5 text-[#4F46E5] animate-pulse" />
                         </div>
-                        <div className="space-y-1">
+                        <div className="space-y-0.5 md:space-y-1">
                             <div className="flex items-center gap-2">
-                                <span className="text-[10px] font-black text-[#4F46E5] uppercase tracking-widest">Live Activity</span>
+                                <span className="text-[9px] md:text-[10px] font-black text-[#4F46E5] uppercase tracking-widest">Live Activity</span>
                                 <div className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse" />
                             </div>
-                            <p className="text-white text-xs font-bold leading-tight">
+                            <p className="text-white text-[11px] md:text-xs font-bold leading-tight">
                                 {ACTIVITIES[index]}
                             </p>
                             <div className="flex items-center gap-1 text-[8px] text-gray-500 font-bold uppercase tracking-tighter">
