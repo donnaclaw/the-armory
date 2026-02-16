@@ -53,6 +53,9 @@ export function Header() {
                     <button onClick={scrollToInventory} className="text-sm font-medium text-gray-400 hover:text-white transition-colors">
                         OTHER PLATFORMS
                     </button>
+                    <Link href="/blog" className="text-sm font-medium text-gray-400 hover:text-white transition-colors">
+                        ALPHA ACADEMY
+                    </Link>
                     <Link href="/faq" onClick={(e) => { e.preventDefault(); document.querySelector('.group-open\\:rotate-180')?.scrollIntoView({ behavior: 'smooth' }) }} className="text-sm font-medium text-gray-400 hover:text-white transition-colors">
                         FAQ
                     </Link>
