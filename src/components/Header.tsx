@@ -53,7 +53,7 @@ export function Header() {
         <>
             <motion.header
                 className={cn(
-                    "sticky top-0 left-0 right-0 z-[100] transition-all duration-300 border-b",
+                    "sticky top-[40px] left-0 right-0 z-[100] transition-all duration-300 border-b",
                     scrolled
                         ? "bg-[#0B0B0B]/80 backdrop-blur-xl border-white/10 py-4 shadow-lg shadow-[#4F46E5]/5"
                         : "bg-transparent border-transparent py-6"

@@ -21,6 +21,7 @@ import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { LiveActivity } from "@/components/LiveActivity";
 import { MobileStickyCTA } from "@/components/MobileStickyCTA";
+import { AnnouncementBar } from "@/components/AnnouncementBar";
 
 export default function RootLayout({
   children,
@@ -32,6 +33,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-[#0B0B0B] text-white`}
       >
+        <AnnouncementBar />
         <Header />
         <main>{children}</main>
         <LiveActivity />

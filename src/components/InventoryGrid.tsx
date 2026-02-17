@@ -140,6 +140,9 @@ export function InventoryGrid() {
                         <div className="bg-white/5 text-gray-400 text-[9px] font-bold px-2 py-0.5 rounded border border-white/10 uppercase tracking-tighter">
                             1,850 REMAINING THIS MONTH
                         </div>
+                        <div className="bg-green-500/10 text-green-400 text-[10px] font-black px-2 py-0.5 rounded border border-green-500/20 uppercase tracking-tighter animate-pulse">
+                            20% BULK DISCOUNT
+                        </div>
                     </div>
 
                     <div className="mb-6">
@@ -165,6 +168,10 @@ export function InventoryGrid() {
                                     {item}
                                 </li>
                             ))}
+                            <li className="flex items-center gap-3 text-sm text-green-400 font-bold bg-green-500/5 p-2 rounded-lg border border-green-500/10">
+                                <Check className="w-4 h-4 shrink-0" />
+                                Wholesale Rate: 20% Off for 50+ Units
+                            </li>
                         </ul>
                     </div>
 
@@ -180,7 +187,7 @@ export function InventoryGrid() {
                                 agreed && "shadow-[0_0_15px_rgba(255,255,255,0.1)] border-white/40"
                             )}
                             disabled={!agreed}
-                            onClick={() => window.open('https://t.me/luke_of', '_blank')}
+                            onClick={() => window.open('https://t.me/luke_of?text=Hi%20Luke,%20I%20am%20interested%20in%20the%2020%25%20discount%20for%2050%2B%20Threads%2BIG%20accounts.', '_blank')}
                         >
                             REQUEST ACCOUNTS
                             <ArrowRight className="w-4 h-4 ml-2" />
