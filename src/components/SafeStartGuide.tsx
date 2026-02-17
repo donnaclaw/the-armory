@@ -40,7 +40,7 @@ export function SafeStartGuide() {
                             <div className="absolute inset-0 bg-white/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-xl blur-xl" />
                             <div className="relative z-10 flex flex-col items-center">
                                 <div className="w-16 h-16 rounded-full bg-[#4F46E5]/10 flex items-center justify-center mb-6 group-hover:bg-[#4F46E5]/20 transition-colors border border-[#4F46E5]/20">
-                                    <step.icon className="w-8 h-8 text-[#4F46E5]" aria-label={step.title} />
+                                    <step.icon className="w-8 h-8 text-[#4F46E5]" aria-label="aged social media accounts marketplace" />
                                 </div>
                                 <h3 className="text-lg font-bold text-white mb-3">{step.title}</h3>
                                 <p className="text-sm text-gray-400 leading-relaxed">
@@ -51,6 +51,29 @@ export function SafeStartGuide() {
                     ))}
                 </div>
             </div>
+
+            {/* VideoObject Schema for Search Optimization */}
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{
+                    __html: JSON.stringify({
+                        "@context": "https://schema.org",
+                        "@type": "VideoObject",
+                        "name": "How to Securely Login to Aged Social Media Accounts",
+                        "description": "Step-by-step guide on using mobile proxies and ghosting periods for aged Instagram and Threads accounts.",
+                        "thumbnailUrl": "https://the-armory-rho.vercel.app/og-image.png",
+                        "uploadDate": "2026-02-17T00:00:00Z",
+                        "duration": "PT2M30S",
+                        "contentUrl": "https://the-armory-rho.vercel.app/guides/login-security",
+                        "embedUrl": "https://the-armory-rho.vercel.app/guides/login-security-embed",
+                        "potentialAction": {
+                            "@type": "SeekToAction",
+                            "target": "https://the-armory-rho.vercel.app/guides/login-security?t={seek_to_second_number}",
+                            "startOffset-input": "required name=seek_to_second_number"
+                        }
+                    })
+                }}
+            />
         </section>
     )
 }

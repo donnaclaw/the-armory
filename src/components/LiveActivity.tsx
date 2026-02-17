@@ -30,7 +30,7 @@ export function LiveActivity() {
     }, [])
 
     return (
-        <div className="fixed bottom-5 left-5 md:bottom-8 md:left-8 z-50 pointer-events-none">
+        <div className="fixed bottom-[80px] left-5 md:bottom-8 md:left-8 z-50 pointer-events-none">
             <AnimatePresence mode="wait">
                 {isVisible && (
                     <motion.div

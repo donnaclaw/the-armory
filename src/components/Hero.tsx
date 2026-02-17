@@ -41,7 +41,7 @@ export function Hero() {
                     animate="animate"
                     className="absolute top-1/4 left-[10%] opacity-20 blur-sm"
                 >
-                    <Instagram className="w-32 h-32 text-[#4F46E5] transform -rotate-12" aria-label="Aged Instagram accounts for sale" />
+                    <Instagram className="w-32 h-32 text-[#4F46E5] transform -rotate-12" aria-label="aged social media accounts marketplace" />
                 </motion.div>
 
                 {/* Threads/At Symbol placeholder */}
@@ -51,7 +51,7 @@ export function Hero() {
                     transition={{ delay: 2 }}
                     className="absolute bottom-1/3 right-[15%] opacity-10 blur-sm"
                 >
-                    <div className="text-9xl font-black text-white transform rotate-12" aria-label="Custom Threads accounts connected to aged Instagram profiles">@</div>
+                    <div className="text-9xl font-black text-white transform rotate-12" aria-label="aged social media accounts marketplace">@</div>
                 </motion.div>
 
                 {/* Shield/Verified Icon */}
@@ -61,7 +61,7 @@ export function Hero() {
                     transition={{ delay: 1 }}
                     className="absolute top-1/3 right-[20%] opacity-10 blur-md"
                 >
-                    <ShieldCheck className="w-24 h-24 text-white transform rotate-6" aria-label="Verified aged social media assets" />
+                    <ShieldCheck className="w-24 h-24 text-white transform rotate-6" aria-label="aged social media accounts marketplace" />
                 </motion.div>
             </div>
 

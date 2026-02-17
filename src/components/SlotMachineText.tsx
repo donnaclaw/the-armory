@@ -1,22 +1,70 @@
 'use client'
 
-import React from 'react'
+import { useState, useEffect, useRef } from 'react'
+import { motion, useAnimation } from 'framer-motion'
 
-const WORDS = [
-    "Instagram",
-    "Threads",
-    "Facebook",
-    "Gmail",
-    "X (Twitter)",
-    "Reddit",
-    "Snapchat",
-    "Instagram" // Loop back to start
+const INITIAL_WORDS = [
+    'Instagram',
+    'Threads',
+    'Facebook',
+    'Gmail',
+    'X (Twitter)',
+    'Reddit',
+    'Snapchat'
 ]
 
 export function SlotMachineText() {
+    const [words, setWords] = useState(INITIAL_WORDS)
+    const [isAnimating, setIsAnimating] = useState(false)
+    const controls = useAnimation()
+    const containerRef = useRef<HTMLDivElement>(null)
+
+    // Match H1 line-height precisely. 
+    // In our Hero.tsx, H1 is text-4xl (36px) md:text-7xl (72px).
+    // line-height leading-tight is usually 1.2.
+    // So 72 * 1.2 = 86.4px. Let's use a flexible 1.2em.
+    const itemHeight = '1.2em'
+
+    useEffect(() => {
+        const interval = setInterval(async () => {
+            if (isAnimating) return
+
+            setIsAnimating(true)
+
+            // Random index as per jQuery logic (random between 1 and length-1)
+            // The jQuery logic used a random index to jump. 
+            // We'll jump by 1 for a consistent "roller" feel, or random if user literal.
+            // User said: "Replace the current Hero title animation with this specific jQuery Slot Machine logic."
+            // JS in reference: var wordIndex = randomSlotttIndex(wordlist.length);
+            const wordIndex = Math.floor(Math.random() * (words.length - 1)) + 1
+
+            // Animate upward
+            await controls.start({
+                y: -wordIndex * 100 + '%', // Using % since height is 1.2em per item
+                transition: { duration: 0.5, ease: [0.445, 0.05, 0.55, 0.95] } // Custom swing-like ease
+            })
+
+            // Pop/Push Logic
+            setTimeout(() => {
+                setWords(prev => {
+                    const newWords = [...prev]
+                    const popped = newWords.splice(0, wordIndex)
+                    newWords.push(...popped)
+                    return newWords
+                })
+                // Reset position instantly
+                controls.set({ y: '0%' })
+                setIsAnimating(false)
+            }, 300) // 300ms delay as per rotateContents reference
+
+        }, 3000) // 3s delay as per Timing request
+
+        return () => clearInterval(interval)
+    }, [controls, isAnimating, words.length])
+
     return (
         <span className="inline-block relative h-[1.2em] overflow-hidden align-bottom">
-            {/* Visual Mask for vertical fade */}
+            {/* Mask layer as per previous visual polish */}
             <div
                 className="absolute inset-0 z-10 pointer-events-none"
                 style={{
@@ -25,65 +73,25 @@ export function SlotMachineText() {
                 }}
             />
 
-            <ul
-                className="flex flex-col animate-roller list-none m-0 p-0 will-change-transform"
+            <motion.div
+                animate={controls}
+                className="flex flex-col list-none m-0 p-0 will-change-transform"
+                style={{ height: itemHeight }}
                 aria-hidden="true"
             >
-                {WORDS.map((word, i) => (
-                    <li
-                        key={i}
+                {words.map((word, i) => (
+                    <div
+                        key={`${word}-${i}`}
                         className="h-[1.2em] flex items-center whitespace-nowrap bg-gradient-to-r from-[#4F46E5] to-white bg-clip-text text-transparent font-black tracking-tighter"
+                        style={{ minHeight: '1.2em' }}
                     >
                         {word}
-                    </li>
+                    </div>
                 ))}
-            </ul>
+            </motion.div>
 
-            {/* SEO Integrity: Full sentence representation for crawlers */}
+            {/* SEO Integrity */}
             <span className="sr-only">Instagram, Threads, Facebook, Gmail, X (Twitter), Reddit, Snapchat</span>
-
-            <style jsx>{`
-                .animate-roller {
-                    animation: roller 25.2s cubic-bezier(0.76, 0, 0.24, 1) infinite;
-                }
-
-                @keyframes roller {
-                    /* Slot 1: Instagram */
-                    0%, 11.9% { transform: translateY(0); }
-                    14.3% { transform: translateY(-12.5%); } /* 1/8 total slots if loop is included */
-                    
-                    /* Slot 2: Threads */
-                    14.3%, 26.2% { transform: translateY(-12.5%); }
-                    28.6% { transform: translateY(-25%); }
-                    
-                    /* Slot 3: Facebook */
-                    28.6%, 40.5% { transform: translateY(-25%); }
-                    42.9% { transform: translateY(-37.5%); }
-                    
-                    /* Slot 4: Gmail */
-                    42.9%, 54.8% { transform: translateY(-37.5%); }
-                    57.1% { transform: translateY(-50%); }
-                    
-                    /* Slot 5: X (Twitter) */
-                    57.1%, 69% { transform: translateY(-50%); }
-                    71.4% { transform: translateY(-62.5%); }
-                    
-                    /* Slot 6: Reddit */
-                    71.4%, 83.3% { transform: translateY(-62.5%); }
-                    85.7% { transform: translateY(-75%); }
-                    
-                    /* Slot 7: Snapchat */
-                    85.7%, 97.6% { transform: translateY(-75%); }
-                    100% { transform: translateY(-87.5%); }
-                }
-
-                /* Mobile Adjustment for Slot Machine Container */
-                @media (max-width: 768px) {
-                    .animate-roller li {
-                        font-size: inherit;
-                    }
-                }
-            `}</style>
         </span>
     )
 }
