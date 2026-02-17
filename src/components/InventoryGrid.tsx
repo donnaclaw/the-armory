@@ -3,7 +3,7 @@
 import { motion } from "framer-motion"
 import { Check, Shield, Instagram, ArrowRight, Lock, Mail, Users, Linkedin, Youtube, Smartphone } from "lucide-react"
 import { Button } from "@/components/ui/Button"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { cn } from "@/lib/utils"
 
 // Tab Data for Multi-Platform
@@ -18,6 +18,11 @@ const PLATFORMS = [
 
 export function InventoryGrid() {
     const [activeTab, setActiveTab] = useState("facebook")
+    const [mounted, setMounted] = useState(false)
+
+    useEffect(() => {
+        setMounted(true)
+    }, [])
 
     // Platform specific stock values
     const STOCK_STATUS: Record<string, string> = {
@@ -293,7 +298,7 @@ export function InventoryGrid() {
 
             <div className="mt-12 text-center">
                 <p className="text-[10px] text-gray-600 font-mono uppercase tracking-[0.3em]">
-                    Inventory last synchronized: {new Date().toLocaleTimeString()} via Global Node.
+                    Inventory last synchronized: {mounted ? new Date().toLocaleTimeString() : '--:--:--'} via Global Node.
                 </p>
             </div>
         </section>
