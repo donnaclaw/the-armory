@@ -24,7 +24,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
                 className={cn(
-                    "relative inline-flex items-center justify-center px-8 py-4 text-sm font-bold tracking-wider uppercase transition-all duration-300 rounded-sm",
+                    "relative inline-flex items-center justify-center px-8 py-4 text-sm font-bold tracking-wider uppercase transition-all duration-300 rounded-sm overflow-hidden",
                     variants[variant],
                     glow && variant === 'primary' && "shadow-[0_0_20px_rgba(79,70,229,0.5)] hover:shadow-[0_0_30px_rgba(79,70,229,0.7)]",
                     className

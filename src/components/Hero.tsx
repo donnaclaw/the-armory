@@ -29,7 +29,7 @@ export function Hero() {
     }
 
     return (
-        <section className="relative flex flex-col items-center min-h-screen text-center overflow-hidden pt-24 md:pt-36">
+        <section className="relative flex flex-col items-center min-h-screen text-center overflow-hidden pt-20 md:pt-32">
             {/* Background Elements */}
             <div className="absolute inset-0 bg-[url('/grid.svg')] bg-center [mask-image:linear-gradient(180deg,white,rgba(255,255,255,0))]" />
 

@@ -18,7 +18,6 @@ const PLATFORMS = [
 
 export function InventoryGrid() {
     const [activeTab, setActiveTab] = useState("facebook")
-    const [agreed, setAgreed] = useState(true)
 
     // Platform specific stock values
     const STOCK_STATUS: Record<string, string> = {
@@ -40,21 +39,6 @@ export function InventoryGrid() {
                     Secure, verified, and warmed. Select your operation capability level.
                 </p>
 
-                {/* Active Consent Hack */}
-                <div className="flex items-center justify-center gap-2 mt-8">
-                    <div className="flex items-center space-x-2 bg-black/40 p-2 px-4 rounded-lg border border-white/5 backdrop-blur-sm">
-                        <input
-                            type="checkbox"
-                            id="terms-inventory"
-                            className="w-4 h-4 accent-[#4F46E5] bg-gray-800 border-gray-600 rounded focus:ring-[#4F46E5] cursor-pointer"
-                            checked={agreed}
-                            onChange={(e) => setAgreed(e.target.checked)}
-                        />
-                        <label htmlFor="terms-inventory" className="text-xs text-gray-400 select-none cursor-pointer">
-                            I agree to the <a href="/terms" className="text-[#4F46E5] hover:underline" target="_blank">Terms</a> and <a href="/refund-policy" className="text-[#4F46E5] hover:underline" target="_blank">Replacement Policy</a>.
-                        </label>
-                    </div>
-                </div>
             </div>
 
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
@@ -114,10 +98,7 @@ export function InventoryGrid() {
                             <div className="text-xs text-gray-500 mb-1">Starting Price</div>
                         </div>
                         <Button
-                            className={cn(
-                                "w-full transition-all duration-300",
-                                agreed ? "bg-[#4F46E5] hover:bg-[#4338CA] shadow-[0_0_20px_rgba(79,70,229,0.3)]" : "opacity-50 pointer-events-none grayscale"
-                            )}
+                            className="w-full transition-all duration-300 bg-[#4F46E5] hover:bg-[#4338CA] shadow-[0_0_20px_rgba(79,70,229,0.3)]"
                             onClick={() => window.open('https://t.me/luke_of', '_blank')}
                         >
                             SECURE ASSETS
@@ -147,8 +128,8 @@ export function InventoryGrid() {
 
                     <div className="mb-6">
                         <div className="w-12 h-12 rounded-xl bg-white text-black flex items-center justify-center font-black text-2xl mb-4" aria-label="aged social media accounts marketplace">@</div>
-                        <h3 className="text-2xl font-bold text-white mb-2">Threads Accelerator</h3>
-                        <p className="text-gray-400 text-sm">Connected Ecosystem</p>
+                        <h3 className="text-2xl font-bold text-white mb-2">Custom Threads</h3>
+                        <p className="text-gray-400 text-sm">Perfect for OFM and AI Models</p>
                     </div>
 
                     <div className="flex-1 space-y-6">
@@ -158,10 +139,10 @@ export function InventoryGrid() {
 
                         <ul className="space-y-3">
                             {[
-                                "Connected to 2010-2018 IG",
-                                "Custom Name & Bio Setup",
+                                "Connected to 2010-2026 IG",
+                                "Custom Name, Username & Bio Setup",
                                 "Profile Picture Installed",
-                                "Initial Follower Seeding"
+                                "3-day warmup included"
                             ].map((item, i) => (
                                 <li key={i} className="flex items-center gap-3 text-sm text-gray-300">
                                     <Check className="w-4 h-4 text-white shrink-0" />
@@ -182,11 +163,7 @@ export function InventoryGrid() {
                         </div>
                         <Button
                             variant="outline"
-                            className={cn(
-                                "w-full transition-all duration-300 border-white/20 hover:bg-white hover:text-black",
-                                agreed && "shadow-[0_0_15px_rgba(255,255,255,0.1)] border-white/40"
-                            )}
-                            disabled={!agreed}
+                            className="w-full transition-all duration-300 border-white/20 hover:bg-white hover:text-black shadow-[0_0_15px_rgba(255,255,255,0.1)] border-white/40"
                             onClick={() => window.open('https://t.me/luke_of?text=Hi%20Luke,%20I%20am%20interested%20in%20the%2020%25%20discount%20for%2050%2B%20Threads%2BIG%20accounts.', '_blank')}
                         >
                             REQUEST ACCOUNTS
@@ -269,11 +246,7 @@ export function InventoryGrid() {
                         </div>
                         <Button
                             variant="outline"
-                            className={cn(
-                                "w-full transition-all duration-300 border-white/20 hover:border-[#4F46E5] hover:text-[#4F46E5]",
-                                agreed && "shadow-[0_0_15px_rgba(79,70,229,0.1)] border-[#4F46E5]/40"
-                            )}
-                            disabled={!agreed}
+                            className="w-full transition-all duration-300 border-white/20 hover:border-[#4F46E5] hover:text-[#4F46E5] shadow-[0_0_15px_rgba(79,70,229,0.1)] border-[#4F46E5]/40"
                             onClick={() => window.open('https://t.me/luke_of', '_blank')}
                         >
                             OPEN CATALOG

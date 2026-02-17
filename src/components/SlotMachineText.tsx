@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect, useRef } from 'react'
+import { flushSync } from 'react-dom'
 import { motion, useAnimation } from 'framer-motion'
 
 const INITIAL_WORDS = [
@@ -15,18 +16,16 @@ const INITIAL_WORDS = [
 
 export function SlotMachineText() {
     const [words, setWords] = useState(INITIAL_WORDS)
-    const [isAnimating, setIsAnimating] = useState(false)
     const [containerWidth, setContainerWidth] = useState<number | string>('auto')
     const [wordWidths, setWordWidths] = useState<Record<string, number>>({})
     const controls = useAnimation()
 
-    // We'll use a hidden span to measure typography exactly as it renders in the H1
+    // Refs to avoid dependency loops in useEffect
+    const wordsRef = useRef(INITIAL_WORDS)
+    const isAnimatingRef = useRef(false)
     const measurerRef = useRef<HTMLSpanElement>(null)
 
     // Match H1 line-height precisely. 
-    // In our Hero.tsx, H1 is text-4xl (36px) md:text-7xl (72px).
-    // line-height leading-tight is 1.25 (standard for tracking-tighter).
-    // We'll use 1.1em as per Elite Armory specs.
     const itemHeight = '1.1em'
 
     useEffect(() => {
@@ -43,19 +42,32 @@ export function SlotMachineText() {
         }
 
         const interval = setInterval(async () => {
-            if (isAnimating) return
+            if (isAnimatingRef.current || document.hidden) return
 
-            setIsAnimating(true)
+            isAnimatingRef.current = true
 
-            // Random index as per jQuery logic
-            const wordIndex = Math.floor(Math.random() * (words.length - 1)) + 1
-            const targetWord = words[wordIndex]
-            const nextWidth = wordWidths[targetWord] || 'auto'
+            // Access current words from Ref to avoid stale closures
+            const currentWords = wordsRef.current
 
-            // Responsive timing: 300ms for mobile (< 768px), 500ms for desktop
+            // Random index (skip 0 which is currently visible)
+            const wordIndex = Math.floor(Math.random() * (currentWords.length - 1)) + 1
+            const targetWord = currentWords[wordIndex]
+
+            // We need to access widths. Since wordWidths is state and set once, we can try to access it via a ref if we want to be 100% safe,
+            // but since we need the widths calculated in the DOM, let's just re-measure if needed or use the state if we can access it?
+            // Actually, we can't access `wordWidths` state safely here if it's not in deps. 
+            // Better to just re-measure or use a ref for widths too.
+            // Let's use a ref for widths.
+            let nextWidth = 0;
+            if (measurerRef.current) {
+                measurerRef.current.innerText = targetWord
+                nextWidth = measurerRef.current.offsetWidth
+            }
+
+            // Responsive timing
             const duration = window.innerWidth < 768 ? 0.3 : 0.5
 
-            // Animate both Width and Scroll simultaneously
+            // Animate
             setContainerWidth(nextWidth)
             await controls.start({
                 y: -wordIndex * 100 + '%',
@@ -63,26 +75,31 @@ export function SlotMachineText() {
             })
 
             // Pop/Push Logic
-            setTimeout(() => {
-                setWords(prev => {
-                    const newWords = [...prev]
-                    const popped = newWords.splice(0, wordIndex)
-                    newWords.push(...popped)
-                    return newWords
-                })
-                // Reset position instantly
-                controls.set({ y: '0%' })
-                setIsAnimating(false)
-            }, duration * 1000)
+            // Update immediately after animation completes. 
+            // Use flushSync to ensure DOM updates before we reset the transform, preventing a flash of the old list at Y=0.
+            const newWords = [...currentWords]
+            const popped = newWords.splice(0, wordIndex)
+            newWords.push(...popped)
+
+            // Force synchronous DOM update
+            flushSync(() => {
+                setWords(newWords)
+                wordsRef.current = newWords
+            })
+
+            // Instantly reset transform to match the new DOM (New Word 0 is now at Y=0)
+            controls.set({ y: '0%' })
+
+            isAnimatingRef.current = false
 
         }, 3000)
 
         return () => clearInterval(interval)
-    }, [controls, isAnimating, words, wordWidths])
+    }, [controls]) // Only controls in dep array (stable)
 
     return (
         <span className="inline-flex items-baseline">
-            {/* Hidden Measurer - matches H1 typography exactly */}
+            {/* Hidden Measurer */}
             <span
                 ref={measurerRef}
                 className="absolute invisible whitespace-nowrap pointer-events-none font-black tracking-tighter text-4xl md:text-7xl uppercase"
@@ -119,7 +136,6 @@ export function SlotMachineText() {
                     ))}
                 </motion.div>
 
-                {/* SEO Integrity */}
                 <span className="sr-only">Instagram, Threads, Facebook, Gmail, X (Twitter), Reddit, Snapchat</span>
             </motion.span>
         </span>

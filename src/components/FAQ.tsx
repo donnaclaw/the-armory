@@ -32,12 +32,12 @@ const FAQS = [
     },
     {
         question: "Do the accounts come with followers?",
-        answer: "We offer both **'Clean Slate'** aged accounts and **'Seeded'** accounts with followers. Check the individual card descriptions in our inventory for specific asset details.",
+        answer: "We offer both **'Clean Slate'** aged accounts and **'Seeded'** accounts with followers. Check the individual card descriptions for details.",
         icon: Lock
     },
     {
         question: "Is there a limit to how many accounts I can buy?",
-        answer: "No. We handle bulk orders from **50 to 5,000+ units**. Contact us on Telegram for custom wholesale pricing and API access for mass deployment.",
+        answer: "No. We handle bulk orders from **50 to 5,000+ units**. Contact us on Telegram for custom wholesale pricing.",
         icon: Zap
     },
     {
@@ -49,7 +49,7 @@ const FAQS = [
 
 export function FAQ() {
     return (
-        <section className="py-20 px-4">
+        <section id="faq" className="py-20 px-4">
             <div className="max-w-3xl mx-auto">
                 <h2 className="text-3xl font-black text-white mb-12 text-center tracking-tighter uppercase">
                     PRO-VENDOR <span className="text-[#4F46E5]">KNOWLEDGE BASE</span>
