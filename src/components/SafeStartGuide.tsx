@@ -12,7 +12,7 @@ const STEPS = [
     {
         icon: Clock,
         title: "2. GHOST MODE",
-        desc: "Login and let the session rest for 24-48 hours. Do not engage immediately."
+        desc: "Login and let the session rest for 24-48 hours. Use our proprietary, secure 2FA Generator located in the Tools section for maximum safety."
     },
     {
         icon: Flame,

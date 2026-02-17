@@ -38,25 +38,16 @@ export function Header() {
         { name: "THREADS CUSTOM", onClick: (e: React.MouseEvent) => handleScrollLink(e, 'account-types') },
         { name: "OTHER PLATFORMS", onClick: (e: React.MouseEvent) => handleScrollLink(e, 'account-types') },
         { name: "ALPHA ACADEMY", href: "/blog" },
-        {
-            name: "FAQ", href: "/faq", onClick: (e: React.MouseEvent) => {
-                if (pathname === '/') {
-                    e.preventDefault()
-                    setMobileMenuOpen(false)
-                    document.querySelector('.group-open\\:rotate-180')?.scrollIntoView({ behavior: 'smooth' })
-                }
-            }
-        },
     ]
 
     return (
         <>
             <motion.header
                 className={cn(
-                    "sticky top-[40px] left-0 right-0 z-[100] transition-all duration-300 border-b",
+                    "sticky top-[20px] left-0 right-0 z-[100] transition-all duration-300 border-b mx-4 rounded-2xl",
                     scrolled
-                        ? "bg-[#0B0B0B]/80 backdrop-blur-xl border-white/10 py-4 shadow-lg shadow-[#4F46E5]/5"
-                        : "bg-transparent border-transparent py-6"
+                        ? "bg-[#0B0B0B]/80 backdrop-blur-xl border-white/10 py-3 shadow-lg shadow-[#4F46E5]/5"
+                        : "bg-transparent border-transparent py-4"
                 )}
             >
                 <div className="max-w-7xl mx-auto px-4 flex items-center justify-between">
@@ -115,16 +106,27 @@ export function Header() {
                         animate={{ opacity: 1, x: 0 }}
                         exit={{ opacity: 0, x: "100%" }}
                         transition={{ type: "spring", damping: 25, stiffness: 200 }}
-                        className="fixed inset-0 z-[90] bg-[#0B0B0B] pt-28 px-6 md:hidden"
+                        className="fixed inset-0 z-[90] bg-[#0B0B0B] px-6 md:hidden overflow-y-auto"
                     >
-                        <nav className="flex flex-col gap-6">
+                        <div className="pt-8 mb-8">
+                            <Link href="/" className="flex items-center gap-2 group w-fit" onClick={() => setMobileMenuOpen(false)}>
+                                <div className="w-8 h-8 rounded bg-gradient-to-br from-[#4F46E5] to-black flex items-center justify-center border border-white/20">
+                                    <Shield className="w-4 h-4 text-white" />
+                                </div>
+                                <span className="font-black tracking-tighter text-white text-lg uppercase">THE ARMORY</span>
+                            </Link>
+                        </div>
+                        <nav className="flex flex-col gap-4">
                             {navLinks.map((link) => (
                                 link.href ? (
                                     <Link
                                         key={link.name}
                                         href={link.href}
                                         onClick={() => {
-                                            if (link.onClick) link.onClick({} as any);
+                                            const l = link as any;
+                                            if (l.onClick && typeof l.onClick === 'function') {
+                                                l.onClick({} as any);
+                                            }
                                             setMobileMenuOpen(false);
                                         }}
                                         className="text-2xl font-black text-white tracking-tight uppercase border-b border-white/5 pb-4"

@@ -4,44 +4,62 @@ import { useState, useEffect, useRef } from 'react'
 import { motion, useAnimation } from 'framer-motion'
 
 const INITIAL_WORDS = [
-    'Instagram',
-    'Threads',
-    'Facebook',
-    'Gmail',
-    'X (Twitter)',
-    'Reddit',
-    'Snapchat'
+    'INSTAGRAM',
+    'THREADS',
+    'FACEBOOK',
+    'GMAIL',
+    'X (TWITTER)',
+    'REDDIT',
+    'SNAPCHAT'
 ]
 
 export function SlotMachineText() {
     const [words, setWords] = useState(INITIAL_WORDS)
     const [isAnimating, setIsAnimating] = useState(false)
+    const [containerWidth, setContainerWidth] = useState<number | string>('auto')
+    const [wordWidths, setWordWidths] = useState<Record<string, number>>({})
     const controls = useAnimation()
-    const containerRef = useRef<HTMLDivElement>(null)
+
+    // We'll use a hidden span to measure typography exactly as it renders in the H1
+    const measurerRef = useRef<HTMLSpanElement>(null)
 
     // Match H1 line-height precisely. 
     // In our Hero.tsx, H1 is text-4xl (36px) md:text-7xl (72px).
-    // line-height leading-tight is usually 1.2.
-    // So 72 * 1.2 = 86.4px. Let's use a flexible 1.2em.
-    const itemHeight = '1.2em'
+    // line-height leading-tight is 1.25 (standard for tracking-tighter).
+    // We'll use 1.1em as per Elite Armory specs.
+    const itemHeight = '1.1em'
 
     useEffect(() => {
+        // Measure all words once on mount
+        if (measurerRef.current) {
+            const widths: Record<string, number> = {}
+            const measurer = measurerRef.current
+            INITIAL_WORDS.forEach(word => {
+                measurer.innerText = word
+                widths[word] = measurer.offsetWidth
+            })
+            setWordWidths(widths)
+            setContainerWidth(widths[INITIAL_WORDS[0]])
+        }
+
         const interval = setInterval(async () => {
             if (isAnimating) return
 
             setIsAnimating(true)
 
-            // Random index as per jQuery logic (random between 1 and length-1)
-            // The jQuery logic used a random index to jump. 
-            // We'll jump by 1 for a consistent "roller" feel, or random if user literal.
-            // User said: "Replace the current Hero title animation with this specific jQuery Slot Machine logic."
-            // JS in reference: var wordIndex = randomSlotttIndex(wordlist.length);
+            // Random index as per jQuery logic
             const wordIndex = Math.floor(Math.random() * (words.length - 1)) + 1
+            const targetWord = words[wordIndex]
+            const nextWidth = wordWidths[targetWord] || 'auto'
 
-            // Animate upward
+            // Responsive timing: 300ms for mobile (< 768px), 500ms for desktop
+            const duration = window.innerWidth < 768 ? 0.3 : 0.5
+
+            // Animate both Width and Scroll simultaneously
+            setContainerWidth(nextWidth)
             await controls.start({
-                y: -wordIndex * 100 + '%', // Using % since height is 1.2em per item
-                transition: { duration: 0.5, ease: [0.445, 0.05, 0.55, 0.95] } // Custom swing-like ease
+                y: -wordIndex * 100 + '%',
+                transition: { duration: duration, ease: [0.76, 0, 0.24, 1] }
             })
 
             // Pop/Push Logic
@@ -55,43 +73,55 @@ export function SlotMachineText() {
                 // Reset position instantly
                 controls.set({ y: '0%' })
                 setIsAnimating(false)
-            }, 300) // 300ms delay as per rotateContents reference
+            }, duration * 1000)
 
-        }, 3000) // 3s delay as per Timing request
+        }, 3000)
 
         return () => clearInterval(interval)
-    }, [controls, isAnimating, words.length])
+    }, [controls, isAnimating, words, wordWidths])
 
     return (
-        <span className="inline-block relative h-[1.2em] overflow-hidden align-bottom">
-            {/* Mask layer as per previous visual polish */}
-            <div
-                className="absolute inset-0 z-10 pointer-events-none"
-                style={{
-                    maskImage: 'linear-gradient(to bottom, transparent, black 15%, black 85%, transparent)',
-                    WebkitMaskImage: 'linear-gradient(to bottom, transparent, black 15%, black 85%, transparent)'
-                }}
+        <span className="inline-flex items-baseline">
+            {/* Hidden Measurer - matches H1 typography exactly */}
+            <span
+                ref={measurerRef}
+                className="absolute invisible whitespace-nowrap pointer-events-none font-black tracking-tighter text-4xl md:text-7xl uppercase"
+                aria-hidden="true"
             />
 
-            <motion.div
-                animate={controls}
-                className="flex flex-col list-none m-0 p-0 will-change-transform"
-                style={{ height: itemHeight }}
-                aria-hidden="true"
+            <motion.span
+                animate={{ width: containerWidth }}
+                transition={{ duration: 0.5, ease: [0.76, 0, 0.24, 1] }}
+                className="inline-block relative h-[1.1em] overflow-hidden align-baseline"
             >
-                {words.map((word, i) => (
-                    <div
-                        key={`${word}-${i}`}
-                        className="h-[1.2em] flex items-center whitespace-nowrap bg-gradient-to-r from-[#4F46E5] to-white bg-clip-text text-transparent font-black tracking-tighter"
-                        style={{ minHeight: '1.2em' }}
-                    >
-                        {word}
-                    </div>
-                ))}
-            </motion.div>
+                {/* Mask layer */}
+                <div
+                    className="absolute inset-0 z-10 pointer-events-none"
+                    style={{
+                        maskImage: 'linear-gradient(to bottom, transparent, black 15%, black 85%, transparent)',
+                        WebkitMaskImage: 'linear-gradient(to bottom, transparent, black 15%, black 85%, transparent)'
+                    }}
+                />
 
-            {/* SEO Integrity */}
-            <span className="sr-only">Instagram, Threads, Facebook, Gmail, X (Twitter), Reddit, Snapchat</span>
+                <motion.div
+                    animate={controls}
+                    className="flex flex-col list-none m-0 p-0 will-change-transform"
+                    aria-hidden="true"
+                >
+                    {words.map((word, i) => (
+                        <div
+                            key={`${word}-${i}`}
+                            className="h-[1.1em] flex items-end whitespace-nowrap bg-gradient-to-r from-[#4F46E5] to-white bg-clip-text text-transparent font-black tracking-tighter uppercase"
+                            style={{ minHeight: '1.1em', lineHeight: '1.1em' }}
+                        >
+                            {word}
+                        </div>
+                    ))}
+                </motion.div>
+
+                {/* SEO Integrity */}
+                <span className="sr-only">Instagram, Threads, Facebook, Gmail, X (Twitter), Reddit, Snapchat</span>
+            </motion.span>
         </span>
     )
 }

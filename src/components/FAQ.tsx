@@ -1,12 +1,13 @@
 'use client'
 
 import { motion } from "framer-motion"
-import { ChevronDown, ShieldCheck, CreditCard, Lock, Mail } from "lucide-react"
+import { ChevronDown, ShieldCheck, CreditCard, Lock, Mail, Zap } from "lucide-react"
+import Link from "next/link"
 
 const FAQS = [
     {
         question: "How do I use the 2FA?",
-        answer: "Paste the provided 2FA key into <a href='https://2fa.live/' target='_blank' class='text-[#4F46E5] hover:underline'>https://2fa.live/</a> to generate your 6-digit login code instantly. Do not wait for SMS.",
+        answer: "Ensure you are using our internal <Link href='/tools/2fa-code-generator' class='text-[#4F46E5] hover:underline'>2FA TOOL</Link> page. If codes fail, contact <a href='https://t.me/luke_of' target='_blank' class='underline'>@luke_of</a> for a 24h replacement.",
         icon: Lock
     },
     {
@@ -23,6 +24,26 @@ const FAQS = [
         question: "Payment Methods",
         answer: "We accept all major **Cryptocurrencies** (BTC, ETH, LTC, USDT) and **Wise** payment links for instant processing. <br/><br/><span class='text-[#4F46E5] font-bold'>Conversion Bridge:</span> To ensure the fastest delivery, send a screenshot of your transaction to <a href='https://t.me/luke_of' target='_blank' class='underline'>@luke_of</a> on Telegram immediately after payment.",
         icon: CreditCard
+    },
+    {
+        question: "Can I use these accounts for OFM or AI-Influencer models?",
+        answer: "Yes. Our aged accounts are specifically vetted for high-trust environments like **OFM and AI-growth**, where fresh accounts are often instantly flagged by neural-behavioral analysis.",
+        icon: ShieldCheck
+    },
+    {
+        question: "Do the accounts come with followers?",
+        answer: "We offer both **'Clean Slate'** aged accounts and **'Seeded'** accounts with followers. Check the individual card descriptions in our inventory for specific asset details.",
+        icon: Lock
+    },
+    {
+        question: "Is there a limit to how many accounts I can buy?",
+        answer: "No. We handle bulk orders from **50 to 5,000+ units**. Contact us on Telegram for custom wholesale pricing and API access for mass deployment.",
+        icon: Zap
+    },
+    {
+        question: "What happens if the 2FA code doesn't work?",
+        answer: "First, ensure you are using our built-in <Link href='/tools/2fa-code-generator' class='text-[#4F46E5] hover:underline'>2FA Generator Tool</Link>. Simply paste your secret key there to get your 6-digit code. If the code still fails, our 24h guarantee covers a full replacement. Contact @luke_of on Telegram immediately.",
+        icon: ShieldCheck
     }
 ]
 

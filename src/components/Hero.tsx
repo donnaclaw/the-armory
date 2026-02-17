@@ -29,7 +29,7 @@ export function Hero() {
     }
 
     return (
-        <section className="relative flex flex-col items-center justify-center min-h-screen text-center overflow-hidden pt-20">
+        <section className="relative flex flex-col items-center min-h-screen text-center overflow-hidden pt-24 md:pt-36">
             {/* Background Elements */}
             <div className="absolute inset-0 bg-[url('/grid.svg')] bg-center [mask-image:linear-gradient(180deg,white,rgba(255,255,255,0))]" />
 
@@ -72,7 +72,7 @@ export function Hero() {
                     initial={{ opacity: 0, scale: 0.5 }}
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ duration: 0.5 }}
-                    className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#4F46E5]/10 border border-[#4F46E5]/20 text-[#4F46E5] text-xs font-bold tracking-widest uppercase mb-4"
+                    className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#4F46E5]/10 border border-[#4F46E5]/20 text-[#4F46E5] text-xs font-bold tracking-widest uppercase mb-2"
                 >
                     <span className="relative flex h-2 w-2">
                         <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#4F46E5] opacity-75"></span>
@@ -85,15 +85,13 @@ export function Hero() {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.8 }}
-                    className="text-4xl md:text-7xl font-black tracking-tighter text-white leading-tight"
+                    className="text-4xl md:text-7xl font-black tracking-tighter text-white leading-[1.1] inline-flex flex-wrap items-baseline justify-center"
                 >
-                    BUY HIGH-TRUST AGED{" "}
-                    <br className="md:hidden" />
+                    <span>BUY HIGH-TRUST AGED&nbsp;</span>
                     <SlotMachineText />
-                    <br className="md:hidden" />
-                    {" "}ACCOUNTS
-                    <br />
-                    <span className="text-[#4F46E5]">(2010–2026)</span>
+                    <span>&nbsp;ACCOUNTS</span>
+                    <br className="w-full" />
+                    <span className="text-[#4F46E5] w-full">(2010–2026)</span>
                 </motion.h1>
 
                 <motion.p

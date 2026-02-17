@@ -152,7 +152,7 @@ export default function TwoFactorGenerator() {
                     </div>
                 </div>
 
-                {/* Conversion Banner */}
+                {/* The 'Buy' Bridge Banner */}
                 <div className="p-8 md:p-12 rounded-3xl bg-gradient-to-br from-[#4F46E5]/20 via-black to-black border border-[#4F46E5]/30 flex flex-col md:flex-row items-center justify-between gap-8 group">
                     <div className="space-y-4 text-center md:text-left">
                         <div className="inline-flex items-center gap-2 text-[#4F46E5] text-xs font-bold uppercase tracking-widest">
@@ -160,19 +160,44 @@ export default function TwoFactorGenerator() {
                             Upgrade Your Infrastructure
                         </div>
                         <h2 className="text-2xl md:text-3xl font-black text-white tracking-tighter uppercase">
-                            Tired of <span className="text-[#4F46E5]">Verification Logs?</span>
+                            Need more <span className="text-[#4F46E5]">high-trust aged assets?</span>
                         </h2>
                         <p className="text-gray-400 max-w-md">
-                            Buy aged Instagram accounts from 2010-2015 with pre-configured 2FA and OGE access. High trust, zero friction.
+                            Browse our premium 2010-2026 Inventory with pre-configured 2FA and OGE access. High trust, zero friction.
                         </p>
                     </div>
-                    <Link href="/" className="w-full md:w-auto">
+                    <Link href="/#account-types" className="w-full md:w-auto">
                         <Button className="w-full px-12 py-6 bg-[#4F46E5] hover:bg-[#4338ca] shadow-[0_0_30px_rgba(79,70,229,0.4)]">
-                            EXPLORE INVENTORY
+                            BROWSE INVENTORY
                             <ArrowRight className="w-5 h-5 ml-2" />
                         </Button>
                     </Link>
                 </div>
+
+                {/* SoftwareApplication Schema for SEO Ranking */}
+                <script
+                    type="application/ld+json"
+                    dangerouslySetInnerHTML={{
+                        __html: JSON.stringify({
+                            "@context": "https://schema.org",
+                            "@type": "SoftwareApplication",
+                            "name": "The Armory 2FA Generator",
+                            "operatingSystem": "Web Browser",
+                            "applicationCategory": "SecurityApplication",
+                            "offers": {
+                                "@type": "Offer",
+                                "price": "0",
+                                "priceCurrency": "USD"
+                            },
+                            "featureList": [
+                                "Local browser computation",
+                                "RFC 6238 Standard",
+                                "Instant TOTP Generation",
+                                "Zero-Server Storage"
+                            ]
+                        })
+                    }}
+                />
 
                 {/* SEO Content */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-12 pt-12">
