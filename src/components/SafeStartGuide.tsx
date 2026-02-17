@@ -40,7 +40,7 @@ export function SafeStartGuide() {
                             <div className="absolute inset-0 bg-white/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-xl blur-xl" />
                             <div className="relative z-10 flex flex-col items-center">
                                 <div className="w-16 h-16 rounded-full bg-[#4F46E5]/10 flex items-center justify-center mb-6 group-hover:bg-[#4F46E5]/20 transition-colors border border-[#4F46E5]/20">
-                                    <step.icon className="w-8 h-8 text-[#4F46E5]" />
+                                    <step.icon className="w-8 h-8 text-[#4F46E5]" aria-label={step.title} />
                                 </div>
                                 <h3 className="text-lg font-bold text-white mb-3">{step.title}</h3>
                                 <p className="text-sm text-gray-400 leading-relaxed">

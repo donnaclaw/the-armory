@@ -80,7 +80,7 @@ export function InventoryGrid() {
                     </div>
 
                     <div className="mb-6">
-                        <Instagram className="w-12 h-12 text-white mb-4" />
+                        <Instagram className="w-12 h-12 text-white mb-4" aria-label="aged instagram accounts for sale with original email 2010-2026" />
                         <h3 className="text-2xl font-bold text-white mb-2">Instagram Heritage</h3>
                         <p className="text-gray-400 text-sm">2010 — 2026</p>
                     </div>
@@ -146,7 +146,7 @@ export function InventoryGrid() {
                     </div>
 
                     <div className="mb-6">
-                        <div className="w-12 h-12 rounded-xl bg-white text-black flex items-center justify-center font-black text-2xl mb-4">@</div>
+                        <div className="w-12 h-12 rounded-xl bg-white text-black flex items-center justify-center font-black text-2xl mb-4" aria-label="custom threads accounts connected to aged instagram profiles">@</div>
                         <h3 className="text-2xl font-bold text-white mb-2">Threads Accelerator</h3>
                         <p className="text-gray-400 text-sm">Connected Ecosystem</p>
                     </div>

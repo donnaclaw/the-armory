@@ -61,7 +61,7 @@ export function Header() {
             >
                 <div className="max-w-7xl mx-auto px-4 flex items-center justify-between">
                     {/* Logo Area */}
-                    <Link href="/" className="flex items-center gap-2 group z-[110]">
+                    <Link href="/" className="flex items-center gap-2 group z-[110]" aria-label="Luke_Of professional social media asset marketplace logo">
                         <div className="w-8 h-8 rounded bg-gradient-to-br from-[#4F46E5] to-black flex items-center justify-center border border-white/20 group-hover:border-[#4F46E5] transition-colors">
                             <Shield className="w-4 h-4 text-white" />
                         </div>

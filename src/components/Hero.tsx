@@ -6,6 +6,8 @@ import { ShieldCheck, ArrowRight, Instagram, MessageCircle, Twitter } from "luci
 import { useState } from "react"
 import { cn } from "@/lib/utils"
 
+import { SlotMachineText } from "@/components/SlotMachineText"
+
 export function Hero() {
     const [agreed, setAgreed] = useState(true)
 
@@ -39,7 +41,7 @@ export function Hero() {
                     animate="animate"
                     className="absolute top-1/4 left-[10%] opacity-20 blur-sm"
                 >
-                    <Instagram className="w-32 h-32 text-[#4F46E5] transform -rotate-12" />
+                    <Instagram className="w-32 h-32 text-[#4F46E5] transform -rotate-12" aria-label="Aged Instagram accounts for sale" />
                 </motion.div>
 
                 {/* Threads/At Symbol placeholder */}
@@ -49,7 +51,7 @@ export function Hero() {
                     transition={{ delay: 2 }}
                     className="absolute bottom-1/3 right-[15%] opacity-10 blur-sm"
                 >
-                    <div className="text-9xl font-black text-white transform rotate-12">@</div>
+                    <div className="text-9xl font-black text-white transform rotate-12" aria-label="Custom Threads accounts connected to aged Instagram profiles">@</div>
                 </motion.div>
 
                 {/* Shield/Verified Icon */}
@@ -59,7 +61,7 @@ export function Hero() {
                     transition={{ delay: 1 }}
                     className="absolute top-1/3 right-[20%] opacity-10 blur-md"
                 >
-                    <ShieldCheck className="w-24 h-24 text-white transform rotate-6" />
+                    <ShieldCheck className="w-24 h-24 text-white transform rotate-6" aria-label="Verified aged social media assets" />
                 </motion.div>
             </div>
 
@@ -85,7 +87,11 @@ export function Hero() {
                     transition={{ duration: 0.8 }}
                     className="text-4xl md:text-7xl font-black tracking-tighter text-white leading-tight"
                 >
-                    BUY HIGH-TRUST <span className="text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-500">AGED INSTAGRAM</span> ACCOUNTS
+                    BUY HIGH-TRUST AGED{" "}
+                    <br className="md:hidden" />
+                    <SlotMachineText />
+                    <br className="md:hidden" />
+                    {" "}ACCOUNTS
                     <br />
                     <span className="text-[#4F46E5]">(2010–2026)</span>
                 </motion.h1>

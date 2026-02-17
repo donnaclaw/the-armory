@@ -14,7 +14,7 @@ export function Footer() {
 
                 {/* COL 1: BRAND & SEO */}
                 <div className="space-y-6">
-                    <Link href="/" className="flex items-center gap-2 group w-fit">
+                    <Link href="/" className="flex items-center gap-2 group w-fit" aria-label="Luke_Of professional social media asset marketplace logo">
                         <div className="w-8 h-8 rounded bg-gradient-to-br from-[#4F46E5] to-black flex items-center justify-center border border-white/20 group-hover:border-[#4F46E5] transition-colors">
                             <Shield className="w-4 h-4 text-white" />
                         </div>
@@ -75,7 +75,7 @@ export function Footer() {
                         </a>
                     </div>
 
-                    <div className="pt-4">
+                    <div className="pt-4" aria-label="secure crypto and wise payment methods for digital assets">
                         <p className="text-xs text-gray-600 mb-3 uppercase tracking-wider">Accepted Methods</p>
                         <div className="flex items-center gap-2 text-gray-400">
                             {/* Payment "Icons" - Using styled text badges for clarity as specific simple SVGs are limited */}

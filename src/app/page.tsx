@@ -1,7 +1,15 @@
 import { Hero } from "@/components/Hero"
-import { InventoryGrid } from "@/components/InventoryGrid"
+import dynamic from 'next/dynamic'
+
+const InventoryGrid = dynamic(() => import('@/components/InventoryGrid').then(mod => mod.InventoryGrid), {
+  loading: () => <div className="h-screen flex items-center justify-center">Loading Inventory...</div>
+})
+
+const FAQ = dynamic(() => import('@/components/FAQ').then(mod => mod.FAQ), {
+  loading: () => <div className="h-64" />
+})
+
 import { SafeStartGuide } from "@/components/SafeStartGuide"
-import { FAQ } from "@/components/FAQ"
 
 export default function Home() {
   return (

@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "Buy Aged Instagram Accounts (2010-2026) | OGE & 2FA Verified",
-  description: "Premium aged social media accounts for IG, Threads, X, and TikTok. Secure delivery via Telegram @luke_of. Crypto & Wise accepted.",
+  description: "Premium aged social media assets (2010-2026). Buy verified Instagram, Threads, X, and Gmail accounts with OGE & 2FA. Bulk discounts (20% OFF) for 50+ units. Secure crypto/Wise delivery via Telegram @luke_of.",
 };
 
 import { Header } from "@/components/Header";
