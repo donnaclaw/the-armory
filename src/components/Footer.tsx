@@ -1,16 +1,26 @@
 'use client'
 
 import Link from "next/link"
-import { Shield, Send, MessageCircle, Bitcoin } from "lucide-react"
+import { usePathname, useRouter } from "next/navigation"
+import { Shield, Send, MessageCircle } from "lucide-react"
+import { trackEvent } from "@/lib/analytics"
 
 export function Footer() {
-    const scrollToSection = (id: string) => {
-        document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' })
+    const pathname = usePathname()
+    const router = useRouter()
+
+    const handleNavigation = (e: React.MouseEvent, id: string) => {
+        e.preventDefault()
+        if (pathname === '/') {
+            document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' })
+        } else {
+            router.push(`/#${id}`)
+        }
     }
 
     return (
         <footer className="bg-[#050505] border-t border-white/10 pt-20 pb-10 text-sm font-sans">
-            <div className="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-12 mb-16">
+            <div className="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
 
                 {/* COL 1: BRAND & SEO */}
                 <div className="space-y-6">
@@ -21,7 +31,7 @@ export function Footer() {
                         <span className="font-black tracking-tighter text-white text-lg">THE ARMORY</span>
                     </Link>
                     <p className="text-gray-500 leading-relaxed max-w-sm">
-                        The world's leading provider of aged social media assets. We specialize in providing high-authority accounts for marketing agencies, OFM operations, and mass-outreach specialists. Trusted since 2017.
+                        The world&apos;s leading provider of aged social media assets. We specialize in providing high-authority accounts for marketing agencies, OFM operations, and mass-outreach specialists. Trusted since 2017.
                     </p>
                 </div>
 
@@ -29,18 +39,25 @@ export function Footer() {
                 <div className="space-y-6">
                     <h4 className="text-white font-bold tracking-widest uppercase text-xs">Quick Links</h4>
                     <nav className="flex flex-col gap-3">
-                        <button onClick={() => scrollToSection('account-types')} className="text-gray-500 hover:text-[#4F46E5] transition-colors text-left w-fit">
+                        <button onClick={(e) => handleNavigation(e, 'inventory')} className="text-gray-500 hover:text-[#4F46E5] transition-colors text-left w-fit">
                             Instagram Aged
                         </button>
-                        <button onClick={() => scrollToSection('account-types')} className="text-gray-500 hover:text-[#4F46E5] transition-colors text-left w-fit">
+                        <button onClick={(e) => handleNavigation(e, 'inventory')} className="text-gray-500 hover:text-[#4F46E5] transition-colors text-left w-fit">
                             Threads Custom
                         </button>
-                        <button onClick={() => scrollToSection('account-types')} className="text-gray-500 hover:text-[#4F46E5] transition-colors text-left w-fit">
+                        <button onClick={(e) => handleNavigation(e, 'inventory')} className="text-gray-500 hover:text-[#4F46E5] transition-colors text-left w-fit">
                             Aged Gmail & More
                         </button>
-                        <button onClick={() => scrollToSection('faq')} className="text-gray-500 hover:text-[#4F46E5] transition-colors text-left w-fit">
-                            FAQ
-                        </button>
+                    </nav>
+                </div>
+
+                {/* COL 3: COMPANY */}
+                <div className="space-y-6">
+                    <h4 className="text-white font-bold tracking-widest uppercase text-xs">Company</h4>
+                    <nav className="flex flex-col gap-3">
+                        <Link href="/about" className="text-gray-500 hover:text-[#4F46E5] transition-colors w-fit">
+                            About Us
+                        </Link>
                         <Link href="/terms" className="text-gray-500 hover:text-[#4F46E5] transition-colors w-fit">
                             Terms of Service
                         </Link>
@@ -50,18 +67,24 @@ export function Footer() {
                     </nav>
                 </div>
 
-                {/* COL 3: SUPPORT & SOCIAL */}
+                {/* COL 4: SUPPORT & SOCIAL */}
                 <div className="space-y-6">
                     <h4 className="text-white font-bold tracking-widest uppercase text-xs">Support & Payment</h4>
 
 
 
                     <div className="flex flex-col gap-3">
-                        <a href="https://t.me/luke_of" target="_blank" className="flex items-center gap-2 text-gray-400 hover:text-white transition-colors group">
+                        <a
+                            href="https://t.me/luke_of"
+                            target="_blank"
+                            rel="noreferrer"
+                            className="flex items-center gap-2 text-gray-400 hover:text-white transition-colors group"
+                            onClick={() => trackEvent("cta_telegram_click", { source: "footer_telegram" })}
+                        >
                             <Send className="w-4 h-4 text-[#4F46E5] group-hover:translate-x-1 transition-transform" />
                             Telegram: @luke_of
                         </a>
-                        <a href="https://discord.gg/luke_of" target="_blank" className="flex items-center gap-2 text-gray-400 hover:text-white transition-colors group">
+                        <a href="https://discord.gg/luke_of" target="_blank" rel="noreferrer" className="flex items-center gap-2 text-gray-400 hover:text-white transition-colors group">
                             <MessageCircle className="w-4 h-4 text-[#4F46E5] group-hover:translate-x-1 transition-transform" />
                             Discord: @luke_of
                         </a>

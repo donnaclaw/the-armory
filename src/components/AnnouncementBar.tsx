@@ -3,34 +3,32 @@
 import { useState, useEffect } from "react"
 import { motion } from "framer-motion"
 
+function calculateTimeLeft() {
+    const now = new Date()
+    const tomorrow = new Date(now)
+    tomorrow.setHours(24, 0, 0, 0)
+
+    const diff = tomorrow.getTime() - now.getTime()
+    const h = Math.floor(diff / (1000 * 60 * 60))
+    const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60))
+    const s = Math.floor((diff % (1000 * 60)) / 1000)
+
+    return `${h.toString().padStart(2, '0')}h ${m.toString().padStart(2, '0')}m ${s.toString().padStart(2, '0')}s`
+}
+
 export function AnnouncementBar() {
-    const [timeLeft, setTimeLeft] = useState("")
+    const [timeLeft, setTimeLeft] = useState(() => calculateTimeLeft())
 
     useEffect(() => {
-        const calculateTimeLeft = () => {
-            const now = new Date()
-            const tomorrow = new Date(now)
-            tomorrow.setHours(24, 0, 0, 0)
-
-            const diff = tomorrow.getTime() - now.getTime()
-
-            const h = Math.floor(diff / (1000 * 60 * 60))
-            const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60))
-            const s = Math.floor((diff % (1000 * 60)) / 1000)
-
-            return `${h.toString().padStart(2, '0')}h ${m.toString().padStart(2, '0')}m ${s.toString().padStart(2, '0')}s`
-        }
-
         const timer = setInterval(() => {
             setTimeLeft(calculateTimeLeft())
         }, 1000)
 
-        setTimeLeft(calculateTimeLeft())
         return () => clearInterval(timer)
     }, [])
 
     const scrollToThreads = () => {
-        const element = document.getElementById('account-types')
+        const element = document.getElementById('inventory')
         if (element) {
             element.scrollIntoView({ behavior: 'smooth' })
         }

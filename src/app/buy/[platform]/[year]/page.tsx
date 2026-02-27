@@ -1,6 +1,7 @@
 import { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import { AssetPageContent } from './AssetPageContent'
+import { buildPageMetadata } from '@/lib/seo'
 
 interface PageProps {
     params: Promise<{
@@ -20,10 +21,11 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     }
 
     const platformTitle = platform.charAt(0).toUpperCase() + platform.slice(1)
-    return {
+    return buildPageMetadata({
         title: `Buy Aged ${platformTitle} Accounts (${year}) | High-Trust Assets`,
         description: `Premium aged ${platformTitle} accounts from ${year}. Secure OGE & 2FA verified assets for professional marketing. Direct delivery via Telegram.`,
-    }
+        path: `/buy/${platform.toLowerCase()}/${year}`,
+    })
 }
 
 function generateIntro(platform: string, year: string) {

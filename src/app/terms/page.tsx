@@ -38,7 +38,7 @@ export default function TermsPage() {
                         The Armory provides valid credentials at the time of transfer. We do not control third-party platforms (e.g., Instagram, Facebook) and are not liable for bans, locks, or restrictions that occur due to user activity, proxy quality, or device fingerprints after the initial login.
                     </p>
                     <p>
-                        It is the buyer's sole responsibility to use high-quality residential proxies and anti-detect browsers to maintain account integrity.
+                        It is the buyer&apos;s sole responsibility to use high-quality residential proxies and anti-detect browsers to maintain account integrity.
                     </p>
                 </section>
 

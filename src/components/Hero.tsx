@@ -2,9 +2,11 @@
 
 import { motion } from "framer-motion"
 import { Button } from "@/components/ui/Button"
-import { ShieldCheck, ArrowRight, Instagram, MessageCircle, Twitter } from "lucide-react"
+import { ShieldCheck, ArrowRight, Instagram, MessageCircle } from "lucide-react"
 import { useState } from "react"
 import { cn } from "@/lib/utils"
+import Link from "next/link"
+import { trackEvent } from "@/lib/analytics"
 
 import { SlotMachineText } from "@/components/SlotMachineText"
 
@@ -12,7 +14,7 @@ export function Hero() {
     const [agreed, setAgreed] = useState(true)
 
     const scrollToInventory = () => {
-        document.getElementById('account-types')?.scrollIntoView({ behavior: 'smooth' })
+        document.getElementById('inventory')?.scrollIntoView({ behavior: 'smooth' })
     }
 
     // Floating animation variants
@@ -41,7 +43,7 @@ export function Hero() {
                     animate="animate"
                     className="absolute top-1/4 left-[10%] opacity-20 blur-sm"
                 >
-                    <Instagram className="w-32 h-32 text-[#4F46E5] transform -rotate-12" aria-label="aged social media accounts marketplace" />
+                    <Instagram className="w-32 h-32 text-[#4F46E5] transform -rotate-12" aria-label="Buy aged Instagram accounts with OGE and 2FA verification" />
                 </motion.div>
 
                 {/* Threads/At Symbol placeholder */}
@@ -51,7 +53,7 @@ export function Hero() {
                     transition={{ delay: 2 }}
                     className="absolute bottom-1/3 right-[15%] opacity-10 blur-sm"
                 >
-                    <div className="text-9xl font-black text-white transform rotate-12" aria-label="aged social media accounts marketplace">@</div>
+                    <div className="text-9xl font-black text-white transform rotate-12" aria-label="Buy custom Threads accounts linked to aged Instagram">@</div>
                 </motion.div>
 
                 {/* Shield/Verified Icon */}
@@ -61,7 +63,7 @@ export function Hero() {
                     transition={{ delay: 1 }}
                     className="absolute top-1/3 right-[20%] opacity-10 blur-md"
                 >
-                    <ShieldCheck className="w-24 h-24 text-white transform rotate-6" aria-label="aged social media accounts marketplace" />
+                    <ShieldCheck className="w-24 h-24 text-white transform rotate-6" aria-label="Verified OGE and 2FA security for all aged social media accounts" />
                 </motion.div>
             </div>
 
@@ -122,7 +124,10 @@ export function Hero() {
                                 onChange={(e) => setAgreed(e.target.checked)}
                             />
                             <label htmlFor="terms" className="text-xs text-gray-400 select-none cursor-pointer">
-                                I agree to the <a href="/terms" className="text-[#4F46E5] hover:underline" target="_blank">Terms</a> and <a href="/refund-policy" className="text-[#4F46E5] hover:underline" target="_blank">24h Replacement Policy</a>.
+                                I agree to the{" "}
+                                <Link href="/terms" className="text-[#4F46E5] hover:underline" target="_blank">Terms</Link>
+                                {" "}and{" "}
+                                <Link href="/refund-policy" className="text-[#4F46E5] hover:underline" target="_blank">24h Replacement Policy</Link>.
                             </label>
                         </div>
 
@@ -145,7 +150,10 @@ export function Hero() {
                                     className="h-14 md:h-14 text-base px-8 w-full md:w-auto md:min-w-[240px] border-white/10 hover:bg-white/5"
                                     variant="outline"
                                     disabled={!agreed}
-                                    onClick={() => window.open('https://t.me/luke_of', '_blank')}
+                                    onClick={() => {
+                                        trackEvent("cta_telegram_click", { source: "hero_join_telegram" })
+                                        window.open('https://t.me/luke_of', '_blank')
+                                    }}
                                 >
                                     <MessageCircle className="w-4 h-4 mr-2" />
                                     JOIN TELEGRAM

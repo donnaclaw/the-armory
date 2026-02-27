@@ -1,10 +1,12 @@
 'use client'
 
 import { motion } from "framer-motion"
-import { Check, Shield, Instagram, ArrowRight, Lock, Mail, Users, Linkedin, Youtube, Smartphone } from "lucide-react"
+import Link from "next/link"
+import { Check, Shield, Instagram, ArrowRight, Users, Smartphone } from "lucide-react"
 import { Button } from "@/components/ui/Button"
-import { useState, useEffect } from "react"
+import { useMemo, useState } from "react"
 import { cn } from "@/lib/utils"
+import { trackEvent } from "@/lib/analytics"
 
 // Tab Data for Multi-Platform
 const PLATFORMS = [
@@ -18,11 +20,7 @@ const PLATFORMS = [
 
 export function InventoryGrid() {
     const [activeTab, setActiveTab] = useState("facebook")
-    const [mounted, setMounted] = useState(false)
-
-    useEffect(() => {
-        setMounted(true)
-    }, [])
+    const syncedAt = useMemo(() => new Date().toLocaleTimeString(), [])
 
     // Platform specific stock values
     const STOCK_STATUS: Record<string, string> = {
@@ -35,7 +33,7 @@ export function InventoryGrid() {
     }
 
     return (
-        <section id="account-types" className="py-20 px-4 max-w-7xl mx-auto">
+        <section id="inventory" className="py-20 px-4 max-w-7xl mx-auto">
             <div className="mb-16 text-center space-y-4">
                 <h2 className="text-3xl md:text-5xl font-black text-white tracking-tighter uppercase">
                     Elite Asset <span className="text-[#4F46E5] text-transparent bg-clip-text bg-gradient-to-r from-[#4F46E5] to-purple-400">Inventory</span>
@@ -50,9 +48,10 @@ export function InventoryGrid() {
 
                 {/* CARD 1: IG AGED */}
                 <motion.div
+                    id="ig-heritage"
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
-                    className="relative group bg-[#0B0B0B] border border-white/10 rounded-3xl p-8 hover:border-[#4F46E5]/50 transition-colors duration-300 flex flex-col"
+                    className="relative group bg-[#0B0B0B] border border-white/10 rounded-3xl p-8 hover:border-[#4F46E5]/50 transition-colors duration-300 flex flex-col scroll-mt-32"
                 >
                     <div className="absolute top-4 right-4 flex flex-col items-end gap-2">
                         <div className="bg-[#4F46E5]/10 text-[#4F46E5] text-xs font-bold px-3 py-1 rounded-full border border-[#4F46E5]/20 flex items-center gap-1">
@@ -69,7 +68,7 @@ export function InventoryGrid() {
                     </div>
 
                     <div className="mb-6">
-                        <Instagram className="w-12 h-12 text-white mb-4" aria-label="aged social media accounts marketplace" />
+                        <Instagram className="w-12 h-12 text-white mb-4" aria-label="Buy aged Instagram heritage accounts from 2010 to 2026" />
                         <h3 className="text-2xl font-bold text-white mb-2">Instagram Heritage</h3>
                         <p className="text-gray-400 text-sm">2010 — 2026</p>
                     </div>
@@ -104,7 +103,10 @@ export function InventoryGrid() {
                         </div>
                         <Button
                             className="w-full transition-all duration-300 bg-[#4F46E5] hover:bg-[#4338CA] shadow-[0_0_20px_rgba(79,70,229,0.3)]"
-                            onClick={() => window.open('https://t.me/luke_of', '_blank')}
+                            onClick={() => {
+                                trackEvent("cta_telegram_click", { source: "inventory_ig_secure_assets" })
+                                window.open('https://t.me/luke_of', '_blank')
+                            }}
                         >
                             SECURE ASSETS
                             <ArrowRight className="w-4 h-4 ml-2" />
@@ -114,10 +116,11 @@ export function InventoryGrid() {
 
                 {/* CARD 2: THREADS */}
                 <motion.div
+                    id="threads-custom"
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.1 }}
-                    className="relative group bg-gradient-to-b from-[#1a1a1a] to-[#0B0B0B] border border-white/10 rounded-3xl p-8 hover:border-white/30 transition-colors duration-300 flex flex-col"
+                    className="relative group bg-gradient-to-b from-[#1a1a1a] to-[#0B0B0B] border border-white/10 rounded-3xl p-8 hover:border-white/30 transition-colors duration-300 flex flex-col scroll-mt-32"
                 >
                     <div className="absolute top-4 right-4 flex flex-col items-end gap-2">
                         <div className="bg-white/10 text-white text-xs font-bold px-3 py-1 rounded-full border border-white/20">
@@ -132,7 +135,7 @@ export function InventoryGrid() {
                     </div>
 
                     <div className="mb-6">
-                        <div className="w-12 h-12 rounded-xl bg-white text-black flex items-center justify-center font-black text-2xl mb-4" aria-label="aged social media accounts marketplace">@</div>
+                        <div className="w-12 h-12 rounded-xl bg-white text-black flex items-center justify-center font-black text-2xl mb-4" aria-label="Buy custom Threads accounts with aged Instagram linking">@</div>
                         <h3 className="text-2xl font-bold text-white mb-2">Custom Threads</h3>
                         <p className="text-gray-400 text-sm">Perfect for OFM and AI Models</p>
                     </div>
@@ -169,7 +172,10 @@ export function InventoryGrid() {
                         <Button
                             variant="outline"
                             className="w-full transition-all duration-300 border-white/20 hover:bg-white hover:text-black shadow-[0_0_15px_rgba(255,255,255,0.1)] border-white/40"
-                            onClick={() => window.open('https://t.me/luke_of?text=Hi%20Luke,%20I%20am%20interested%20in%20the%2020%25%20discount%20for%2050%2B%20Threads%2BIG%20accounts.', '_blank')}
+                            onClick={() => {
+                                trackEvent("cta_telegram_click", { source: "inventory_threads_request_accounts" })
+                                window.open('https://t.me/luke_of?text=Hi%20Luke,%20I%20am%20interested%20in%20the%2020%25%20discount%20for%2050%2B%20Threads%2BIG%20accounts.', '_blank')
+                            }}
                         >
                             REQUEST ACCOUNTS
                             <ArrowRight className="w-4 h-4 ml-2" />
@@ -179,10 +185,11 @@ export function InventoryGrid() {
 
                 {/* CARD 3: MULTI-PLATFORM */}
                 <motion.div
+                    id="multi-platform"
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.2 }}
-                    className="relative group bg-[#0B0B0B] border border-white/10 rounded-3xl p-8 hover:border-[#4F46E5]/30 transition-colors duration-300 flex flex-col"
+                    className="relative group bg-[#0B0B0B] border border-white/10 rounded-3xl p-8 hover:border-[#4F46E5]/30 transition-colors duration-300 flex flex-col scroll-mt-32"
                 >
                     <div className="mb-6">
                         <div className="flex items-center gap-2 mb-4">
@@ -252,7 +259,10 @@ export function InventoryGrid() {
                         <Button
                             variant="outline"
                             className="w-full transition-all duration-300 border-white/20 hover:border-[#4F46E5] hover:text-[#4F46E5] shadow-[0_0_15px_rgba(79,70,229,0.1)] border-[#4F46E5]/40"
-                            onClick={() => window.open('https://t.me/luke_of', '_blank')}
+                            onClick={() => {
+                                trackEvent("cta_telegram_click", { source: "inventory_open_catalog" })
+                                window.open('https://t.me/luke_of', '_blank')
+                            }}
                         >
                             OPEN CATALOG
                             <ArrowRight className="w-4 h-4 ml-2" />
@@ -282,13 +292,13 @@ export function InventoryGrid() {
                         { label: "FB Market-Ready", path: "/buy/facebook/2015" },
                         { label: "TikTok Foundation", path: "/buy/tiktok/2018" }
                     ].map((filter, i) => (
-                        <a
+                        <Link
                             key={i}
                             href={filter.path}
                             className="px-4 py-3 bg-[#0f0f0f] border border-white/5 rounded-xl text-xs text-gray-500 hover:text-white hover:border-[#4F46E5]/30 hover:bg-[#151515] transition-all text-center font-medium"
                         >
                             {filter.label}
-                        </a>
+                        </Link>
                     ))}
                 </div>
                 <p className="mt-8 text-center text-[10px] text-gray-700 uppercase tracking-[0.2em]">
@@ -298,7 +308,7 @@ export function InventoryGrid() {
 
             <div className="mt-12 text-center">
                 <p className="text-[10px] text-gray-600 font-mono uppercase tracking-[0.3em]">
-                    Inventory last synchronized: {mounted ? new Date().toLocaleTimeString() : '--:--:--'} via Global Node.
+                    Inventory last synchronized: {syncedAt} via Global Node.
                 </p>
             </div>
         </section>

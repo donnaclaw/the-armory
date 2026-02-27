@@ -23,7 +23,7 @@ export default function RefundPolicyPage() {
                 <section className="space-y-6 p-6 border border-[#4F46E5]/20 bg-[#4F46E5]/5 rounded-lg">
                     <h2 className="text-xl font-bold text-[#4F46E5]">2. 24-HOUR DOA REPLACEMENT GUARANTEE</h2>
                     <p>
-                        <strong>Replacement only if account is locked at first login.</strong> If an account is non-functional ("Dead on Arrival") at the time of delivery, we will replace it free of charge within 24 hours of purchase.
+                        <strong>Replacement only if account is locked at first login.</strong> If an account is non-functional (&quot;Dead on Arrival&quot;) at the time of delivery, we will replace it free of charge within 24 hours of purchase.
                     </p>
                     <h3 className="text-lg font-bold text-white mt-4">REQUIRED PROOF:</h3>
                     <ul className="list-disc pl-5 space-y-2">
