@@ -1,6 +1,6 @@
 import type { Metadata } from "next"
 
-export const SITE_URL = "https://buyagedinstagramaccount.com"
+export const SITE_URL = "https://www.buyagedinstagramaccount.com"
 export const SITE_NAME = "The Armory - Aged Social Media Accounts"
 export const DEFAULT_OG_IMAGE = "/og-image.png"
 export const DEFAULT_DESCRIPTION = "Buy aged social media accounts (2010-2026) - Instagram, Threads, Facebook, X, Gmail, TikTok, Reddit and Snapchat. OGE and 2FA verified with secure delivery via Telegram."

@@ -31,8 +31,8 @@ const SCHEMA_GRAPH = {
     {
       "@type": "OnlineStore",
       name: "The Armory - Buy Aged Social Media Accounts",
-      url: "https://buyagedinstagramaccount.com",
-      logo: "https://buyagedinstagramaccount.com/icon.svg",
+      url: "https://www.buyagedinstagramaccount.com",
+      logo: "https://www.buyagedinstagramaccount.com/icon.svg",
       description:
         "Premium marketplace for aged social media accounts. Buy verified Instagram, Threads, Facebook, X, Gmail, TikTok, Reddit and Snapchat accounts with OGE and 2FA.",
       aggregateRating: {
