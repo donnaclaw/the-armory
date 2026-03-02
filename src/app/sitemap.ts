@@ -1,6 +1,16 @@
 import { MetadataRoute } from 'next'
-import { ARTICLES } from "@/lib/blog-data"
+import { ARTICLES, type BlogArticle } from "@/lib/blog-data"
 import { SITE_URL } from "@/lib/seo"
+
+function parseDate(dateValue?: string): Date | undefined {
+    if (!dateValue) return undefined
+    const parsed = new Date(dateValue)
+    return Number.isNaN(parsed.getTime()) ? undefined : parsed
+}
+
+function resolveArticleLastModified(article: BlogArticle): Date {
+    return parseDate(article.seo?.modifiedAtISO) ?? parseDate(article.date) ?? new Date()
+}
 
 export default function sitemap(): MetadataRoute.Sitemap {
     const baseUrl = SITE_URL
@@ -20,7 +30,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     // Blog Dynamic Routes
     const blogRoutes: MetadataRoute.Sitemap = Object.values(ARTICLES).map((article) => ({
         url: `${baseUrl}/blog/${article.slug}`,
-        lastModified: new Date(),
+        lastModified: resolveArticleLastModified(article),
         changeFrequency: 'monthly',
         priority: 0.7,
     }))

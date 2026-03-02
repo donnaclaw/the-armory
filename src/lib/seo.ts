@@ -37,6 +37,7 @@ interface PageMetadataInput {
   type?: "website" | "article"
   image?: string
   keywords?: string[]
+  languages?: Record<string, string>
   publishedTime?: string
   authors?: string[]
   noIndex?: boolean
@@ -49,17 +50,27 @@ export function buildPageMetadata({
   type = "website",
   image = DEFAULT_OG_IMAGE,
   keywords,
+  languages,
   publishedTime,
   authors,
   noIndex = false,
 }: PageMetadataInput): Metadata {
   const canonical = toAbsoluteUrl(path)
+  const languageAlternates = languages
+    ? Object.fromEntries(
+        Object.entries(languages).map(([locale, localePath]) => [
+          locale,
+          toAbsoluteUrl(localePath),
+        ])
+      )
+    : undefined
 
   return {
     title,
     description,
     alternates: {
       canonical,
+      ...(languageAlternates ? { languages: languageAlternates } : {}),
     },
     keywords,
     openGraph: {

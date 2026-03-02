@@ -11,13 +11,19 @@ import { ProductBridge } from "@/components/blog/ProductBridge"
 import { ArticleContent } from "@/components/blog/ArticleContent"
 import { SlotMachineText } from "@/components/SlotMachineText"
 import { ComparisonTable } from "@/components/blog/ComparisonTable"
-import { buildPageMetadata } from "@/lib/seo"
+import { buildPageMetadata, DEFAULT_OG_IMAGE, toAbsoluteUrl } from "@/lib/seo"
 import { TrackedLink } from "@/components/TrackedLink"
 
 interface PageProps {
     params: Promise<{
         slug: string
     }>
+}
+
+function parseToISO(dateValue?: string): string | undefined {
+    if (!dateValue) return undefined
+    const parsed = new Date(dateValue)
+    return Number.isNaN(parsed.getTime()) ? undefined : parsed.toISOString()
 }
 
 export async function generateStaticParams() {
@@ -30,14 +36,20 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
     if (!article) return { title: 'Not Found' }
 
-    const description = article.intro.length > 155 ? article.intro.substring(0, 155) + '...' : article.intro
+    const defaultDescription = article.intro.length > 155 ? article.intro.substring(0, 155) + '...' : article.intro
+    const description = article.seo?.metaDescription ?? `${defaultDescription} Expert guide by ${article.author}.`
+    const publishedTime = article.seo?.publishedAtISO ?? parseToISO(article.date)
 
     return buildPageMetadata({
-        title: `${article.title} | Alpha Academy Authority Guide`,
-        description: `${description} Expert guide by ${article.author}.`,
+        title: article.seo?.metaTitle ?? `${article.title} | Alpha Academy Authority Guide`,
+        description,
         path: `/blog/${slug}`,
         type: "article",
-        publishedTime: article.date,
+        keywords: article.seo?.keywords,
+        languages: {
+            "en-US": `/blog/${slug}`,
+        },
+        publishedTime,
         authors: [article.author],
     })
 }
@@ -47,6 +59,11 @@ export default async function BlogPost({ params }: PageProps) {
     const article = ARTICLES[slug]
 
     if (!article) notFound()
+    const canonicalUrl = toAbsoluteUrl(`/blog/${slug}`)
+    const publishedAtISO = article.seo?.publishedAtISO ?? parseToISO(article.date)
+    const modifiedAtISO = article.seo?.modifiedAtISO ?? publishedAtISO
+    const schemaDescription = article.seo?.metaDescription ?? article.intro
+    const imageUrl = article.images?.[0]?.url ? toAbsoluteUrl(article.images[0].url) : toAbsoluteUrl(DEFAULT_OG_IMAGE)
 
     return (
         <main className="min-h-screen bg-[#0B0B0B] pt-32 pb-20 px-4">
@@ -56,15 +73,30 @@ export default async function BlogPost({ params }: PageProps) {
                 dangerouslySetInnerHTML={{
                     __html: JSON.stringify({
                         "@context": "https://schema.org",
-                        "@type": "Article",
+                        "@type": "BlogPosting",
                         "headline": article.title,
+                        "description": schemaDescription,
+                        "datePublished": publishedAtISO,
+                        "dateModified": modifiedAtISO,
+                        "mainEntityOfPage": {
+                            "@type": "WebPage",
+                            "@id": canonicalUrl
+                        },
                         "author": {
                             "@type": "Person",
                             "name": article.author,
                             "jobTitle": article.authorRole
                         },
-                        "datePublished": article.date,
-                        "publisher": { "@type": "Organization", "name": "The Armory" }
+                        "publisher": {
+                            "@type": "Organization",
+                            "name": "The Armory",
+                            "logo": {
+                                "@type": "ImageObject",
+                                "url": toAbsoluteUrl("/icon.svg")
+                            }
+                        },
+                        "image": [imageUrl],
+                        "keywords": article.seo?.keywords
                     })
                 }}
             />
@@ -161,7 +193,7 @@ export default async function BlogPost({ params }: PageProps) {
                 <ArticleContent content={article.content} />
 
                 {/* Conditional Comparison Table for Technical Pillars */}
-                {(article.slug === 'oge-security-math' || article.slug === 'shadowban-myth-technical') && <ComparisonTable />}
+                {(article.slug === 'oge-security-math' || article.slug === 'shadowban-myth-technical' || article.slug === 'threads-ranking-update-2026-aged-accounts') && <ComparisonTable />}
 
                 {/* Interactive Trust Section */}
                 <InteractiveChecklist
