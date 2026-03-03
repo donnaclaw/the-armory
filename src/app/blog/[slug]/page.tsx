@@ -193,7 +193,7 @@ export default async function BlogPost({ params }: PageProps) {
                 <ArticleContent content={article.content} />
 
                 {/* Conditional Comparison Table for Technical Pillars */}
-                {(article.slug === 'oge-security-math' || article.slug === 'shadowban-myth-technical' || article.slug === 'threads-ranking-update-2026-aged-accounts') && <ComparisonTable />}
+                {(article.slug === 'oge-security-math' || article.slug === 'shadowban-myth-technical' || article.slug === 'threads-ranking-update-2026-aged-accounts' || article.slug === 'instagram-voice-translation-2026-aged-accounts') && <ComparisonTable />}
 
                 {/* Interactive Trust Section */}
                 <InteractiveChecklist
