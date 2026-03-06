@@ -39,6 +39,7 @@ interface PageMetadataInput {
   keywords?: string[]
   languages?: Record<string, string>
   publishedTime?: string
+  modifiedTime?: string
   authors?: string[]
   noIndex?: boolean
 }
@@ -52,6 +53,7 @@ export function buildPageMetadata({
   keywords,
   languages,
   publishedTime,
+  modifiedTime,
   authors,
   noIndex = false,
 }: PageMetadataInput): Metadata {
@@ -88,6 +90,7 @@ export function buildPageMetadata({
         },
       ],
       ...(publishedTime ? { publishedTime } : {}),
+      ...(modifiedTime ? { modifiedTime } : {}),
       ...(authors && authors.length > 0 ? { authors } : {}),
     },
     twitter: {
@@ -143,6 +146,9 @@ export function buildRootMetadata(): Metadata {
     },
     alternates: {
       canonical: SITE_URL,
+      languages: {
+        "en-US": SITE_URL,
+      },
     },
     robots: {
       index: true,

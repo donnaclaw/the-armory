@@ -193,7 +193,7 @@ export default async function BlogPost({ params }: PageProps) {
                 <ArticleContent content={article.content} />
 
                 {/* Conditional Comparison Table for Technical Pillars */}
-                {(article.slug === 'oge-security-math' || article.slug === 'shadowban-myth-technical' || article.slug === 'threads-ranking-update-2026-aged-accounts' || article.slug === 'instagram-voice-translation-2026-aged-accounts' || article.slug === 'x-creator-payout-update-2026-aged-accounts' || article.slug === 'threads-vs-instagram-aged-accounts-2026') && <ComparisonTable />}
+                {(article.slug === 'oge-security-math' || article.slug === 'shadowban-myth-technical' || article.slug === 'threads-ranking-update-2026-aged-accounts' || article.slug === 'instagram-voice-translation-2026-aged-accounts' || article.slug === 'x-creator-payout-update-2026-aged-accounts' || article.slug === 'threads-vs-instagram-aged-accounts-2026' || article.slug === 'aged-threads-vs-new-threads-accounts-2026-test' || article.slug === 'instagram-2012-vs-2026-aged-accounts-conversion') && <ComparisonTable />}
 
                 {/* Interactive Trust Section */}
                 <InteractiveChecklist
@@ -223,9 +223,15 @@ export default async function BlogPost({ params }: PageProps) {
                                 Managing 10,000+ social assets since 2017. Specialist in high-trust legacy accounts and automation skip-logic. Luke handles the infrastructure that powers some of the largest mass-outreach operations globally.
                             </p>
                             <div className="flex items-center gap-4 pt-4">
-                                <Link href="https://t.me/luke_of" target="_blank" className="text-white hover:text-[#4F46E5] transition-colors">
+                                <TrackedLink
+                                    href="https://t.me/luke_of"
+                                    target="_blank"
+                                    className="text-white hover:text-[#4F46E5] transition-colors"
+                                    eventName="cta_telegram_click"
+                                    eventProps={{ source: "blog_author_footer_telegram", slug }}
+                                >
                                     <Share2 className="w-5 h-5" />
-                                </Link>
+                                </TrackedLink>
                                 <TrackedLink
                                     href="/#inventory"
                                     className="text-xs font-black text-white border-b-2 border-[#4F46E5] pb-1 hover:text-[#4F46E5] transition-colors"
@@ -272,11 +278,16 @@ export default async function BlogPost({ params }: PageProps) {
                                 <h3 className="text-2xl font-black text-white uppercase tracking-tighter">Need a Custom Setup?</h3>
                                 <p className="text-white/80 text-sm font-medium">Get a direct blueprint for your specific operation.</p>
                             </div>
-                            <Link href="https://t.me/luke_of" target="_blank">
+                            <TrackedLink
+                                href="https://t.me/luke_of"
+                                target="_blank"
+                                eventName="cta_telegram_click"
+                                eventProps={{ source: "blog_post_consult_telegram", slug }}
+                            >
                                 <Button className="bg-white text-[#4F46E5] hover:bg-white/90 px-10 py-6 font-black uppercase tracking-widest text-xs">
                                     CONSULT LUKE
                                 </Button>
-                            </Link>
+                            </TrackedLink>
                         </div>
                     </div>
                 )}

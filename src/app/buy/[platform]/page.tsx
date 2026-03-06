@@ -2,7 +2,9 @@ import { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import { Check, Shield, ArrowRight, Star, ChevronRight } from 'lucide-react'
-import { buildPageMetadata } from '@/lib/seo'
+import { buildPageMetadata, toAbsoluteUrl } from '@/lib/seo'
+import { getBuyPlatformModifiedAtISO } from '@/lib/buy-seo-data'
+import { TrackedLink } from '@/components/TrackedLink'
 
 interface PageProps {
     params: Promise<{
@@ -292,11 +294,24 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     const { platform } = await params
     const data = PLATFORM_DATA[platform.toLowerCase()]
     if (!data) return { title: 'Not Found' }
+    const path = `/buy/${platform.toLowerCase()}`
+    const modifiedTime = getBuyPlatformModifiedAtISO(platform.toLowerCase()) ?? undefined
 
     return buildPageMetadata({
         title: data.title,
         description: data.metaDescription,
-        path: `/buy/${platform.toLowerCase()}`,
+        path,
+        keywords: [
+            `buy aged ${platform.toLowerCase()} accounts`,
+            `aged ${platform.toLowerCase()} accounts`,
+            'buy aged social media accounts',
+            'oge verified accounts',
+            '2fa verified accounts',
+        ],
+        languages: {
+            'en-US': path,
+        },
+        modifiedTime,
     })
 }
 
@@ -305,12 +320,14 @@ export default async function PlatformPage({ params }: PageProps) {
     const data = PLATFORM_DATA[platform.toLowerCase()]
 
     if (!data) notFound()
+    const canonicalUrl = toAbsoluteUrl(`/buy/${platform.toLowerCase()}`)
 
     const productSchema = {
         "@context": "https://schema.org",
         "@type": "Product",
         "name": data.title,
         "description": data.description,
+        "url": canonicalUrl,
         "brand": { "@type": "Brand", "name": "The Armory" },
         "offers": {
             "@type": "AggregateOffer",
@@ -320,13 +337,33 @@ export default async function PlatformPage({ params }: PageProps) {
         }
     }
 
+    const breadcrumbSchema = {
+        '@context': 'https://schema.org',
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+            {
+                '@type': 'ListItem',
+                position: 1,
+                name: 'Home',
+                item: toAbsoluteUrl('/'),
+            },
+            {
+                '@type': 'ListItem',
+                position: 2,
+                name: data.title.replace('Buy ', ''),
+                item: canonicalUrl,
+            },
+        ],
+    }
+
     return (
         <main className="min-h-screen bg-[#0B0B0B] pt-32 pb-20 px-4">
             <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(productSchema) }} />
+            <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
 
             <div className="max-w-5xl mx-auto space-y-16">
                 {/* Breadcrumbs */}
-                <nav className="flex items-center gap-2 text-xs font-bold uppercase tracking-widest">
+                <nav aria-label="Breadcrumb" className="flex items-center gap-2 text-xs font-bold uppercase tracking-widest">
                     <Link href="/" className="text-gray-500 hover:text-white transition-colors">Home</Link>
                     <ChevronRight className="w-3 h-3 text-gray-700" />
                     <Link href="/#inventory" className="text-gray-500 hover:text-white transition-colors">Inventory</Link>
@@ -400,15 +437,17 @@ export default async function PlatformPage({ params }: PageProps) {
                                 <div className="text-3xl font-black text-white">{data.priceRange}</div>
                                 <div className="text-xs text-gray-500 uppercase tracking-widest">per account</div>
                             </div>
-                            <a
+                            <TrackedLink
                                 href="https://t.me/luke_of"
                                 target="_blank"
                                 rel="noopener noreferrer"
+                                eventName="cta_telegram_click"
+                                eventProps={{ source: `buy_platform_${platform.toLowerCase()}_sidebar` }}
                                 className="w-full bg-[#4F46E5] hover:bg-[#4338CA] text-white font-black text-xs uppercase tracking-widest py-4 px-6 rounded-xl transition-all shadow-[0_0_20px_rgba(79,70,229,0.3)] flex items-center justify-center gap-2"
                             >
                                 CONTACT AGENT
                                 <ArrowRight className="w-4 h-4" />
-                            </a>
+                            </TrackedLink>
                             <ul className="space-y-2 text-xs text-gray-400">
                                 <li className="flex items-center gap-2"><Check className="w-3 h-3 text-green-500" /> Instant Telegram Delivery</li>
                                 <li className="flex items-center gap-2"><Check className="w-3 h-3 text-green-500" /> 24h Replacement Guarantee</li>

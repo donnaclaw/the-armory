@@ -1,7 +1,14 @@
 import { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import { AssetPageContent } from './AssetPageContent'
-import { buildPageMetadata } from '@/lib/seo'
+import { buildPageMetadata, toAbsoluteUrl } from '@/lib/seo'
+import {
+    BUY_PLATFORMS,
+    BUY_YEARS,
+    getBuyYearSeoProfile,
+    isValidBuyPlatform,
+    isValidBuyYear,
+} from '@/lib/buy-seo-data'
 
 interface PageProps {
     params: Promise<{
@@ -10,45 +17,121 @@ interface PageProps {
     }>
 }
 
-const PLATFORMS = ['instagram', 'threads', 'facebook', 'tiktok', 'x', 'reddit', 'snapchat', 'gmail']
-const YEARS = Array.from({ length: 2026 - 2010 + 1 }, (_, i) => (2010 + i).toString())
+export const dynamicParams = false
+
+export function generateStaticParams() {
+    return BUY_PLATFORMS.flatMap((platform) => BUY_YEARS.map((year) => ({ platform, year })))
+}
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
     const { platform, year } = await params
 
-    if (!PLATFORMS.includes(platform.toLowerCase()) || !YEARS.includes(year)) {
+    if (!isValidBuyPlatform(platform) || !isValidBuyYear(year)) {
         return { title: 'Not Found' }
     }
 
-    const platformTitle = platform.charAt(0).toUpperCase() + platform.slice(1)
-    return buildPageMetadata({
-        title: `Buy Aged ${platformTitle} Accounts (${year}) | High-Trust Assets`,
-        description: `Premium aged ${platformTitle} accounts from ${year}. Secure OGE & 2FA verified assets for professional marketing. Direct delivery via Telegram.`,
-        path: `/buy/${platform.toLowerCase()}/${year}`,
-    })
-}
+    const seoProfile = getBuyYearSeoProfile(platform, year)
+    if (!seoProfile) {
+        return { title: 'Not Found' }
+    }
 
-function generateIntro(platform: string, year: string) {
-    const platformTitle = platform.charAt(0).toUpperCase() + platform.slice(1)
-    return `Why a ${year} ${platformTitle} Account is perfect for brand stability. In the rapidly evolving digital landscape, aged assets from ${year} provide a level of inherent trust that fresh accounts simply cannot match. By leveraging a ${platformTitle} profile with over a decade of history, marketing agencies and mass-outreach specialists can effectively bypass modern spam filters and trust-score algorithms. These veteran assets are pre-equipped with legacy metadata, ensuring your operations remain robust and resistant to shadowbans. Whether you are scaling an OFM operation or managing a global marketing campaign, our verified ${year} assets offer the security and longevity required for high-volume enterprise performance.`
+    const path = `/buy/${platform.toLowerCase()}/${year}`
+
+    return buildPageMetadata({
+        title: seoProfile.metaTitle,
+        description: seoProfile.metaDescription,
+        path,
+        keywords: [
+            seoProfile.keywordFocus,
+            `aged ${seoProfile.platformLabel.toLowerCase()} accounts`,
+            'buy aged social media accounts',
+            'oge verified accounts',
+            '2fa verified accounts',
+        ],
+        languages: {
+            'en-US': path,
+        },
+        modifiedTime: seoProfile.modifiedAtISO,
+    })
 }
 
 export default async function Page({ params }: PageProps) {
     const { platform, year } = await params
 
-    if (!PLATFORMS.includes(platform.toLowerCase()) || !YEARS.includes(year)) {
+    if (!isValidBuyPlatform(platform) || !isValidBuyYear(year)) {
         notFound()
     }
 
-    const platformTitle = platform.charAt(0).toUpperCase() + platform.slice(1)
-    const intro = generateIntro(platform, year)
+    const seoProfile = getBuyYearSeoProfile(platform, year)
+    if (!seoProfile) {
+        notFound()
+    }
+
+    const canonicalPath = `/buy/${platform.toLowerCase()}/${year}`
+    const canonicalUrl = toAbsoluteUrl(canonicalPath)
+    const platformUrl = toAbsoluteUrl(`/buy/${platform.toLowerCase()}`)
+    const homeUrl = toAbsoluteUrl('/')
+
+    const breadcrumbSchema = {
+        '@context': 'https://schema.org',
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+            {
+                '@type': 'ListItem',
+                position: 1,
+                name: 'Home',
+                item: homeUrl,
+            },
+            {
+                '@type': 'ListItem',
+                position: 2,
+                name: `Aged ${seoProfile.platformLabel} Accounts`,
+                item: platformUrl,
+            },
+            {
+                '@type': 'ListItem',
+                position: 3,
+                name: `${seoProfile.platformLabel} ${year}`,
+                item: canonicalUrl,
+            },
+        ],
+    }
+
+    const productSchema = {
+        '@context': 'https://schema.org',
+        '@type': 'Product',
+        name: `${seoProfile.platformLabel} Aged Accounts (${year})`,
+        description: seoProfile.metaDescription,
+        url: canonicalUrl,
+        brand: { '@type': 'Brand', name: 'The Armory' },
+        category: `${seoProfile.platformLabel} Aged Accounts`,
+        keywords: seoProfile.keywordFocus,
+        offers: {
+            '@type': 'AggregateOffer',
+            priceCurrency: 'USD',
+            lowPrice: '2.00',
+            availability: 'https://schema.org/InStock',
+            url: canonicalUrl,
+        },
+    }
 
     return (
         <main className="min-h-screen bg-[#0B0B0B] pt-32 pb-20 px-4">
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+            />
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(productSchema) }}
+            />
             <AssetPageContent
-                platformTitle={platformTitle}
+                platformTitle={seoProfile.platformLabel}
                 year={year}
-                intro={intro}
+                intro={seoProfile.introVariant}
+                keywordFocus={seoProfile.keywordFocus}
+                keyPoints={seoProfile.keyPoints}
+                h1={seoProfile.h1}
             />
         </main>
     )

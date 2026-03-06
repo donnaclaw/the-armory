@@ -3,9 +3,9 @@ import TwoFactorGeneratorClient from './TwoFactorGeneratorClient'
 import { buildPageMetadata, toAbsoluteUrl } from '@/lib/seo'
 
 const PAGE_PATH = '/tools/2fa-code-generator'
-const PAGE_TITLE = '2FA Code Generator for Aged Instagram & Threads Accounts'
+const PAGE_TITLE = 'Free 2FA Code Generator for Aged IG & Threads'
 const PAGE_DESCRIPTION =
-  'Generate secure TOTP 2FA codes for aged Instagram and Threads accounts. Browser-only tool, no server storage, and instant RFC 6238 verification.'
+  'Generate 6-digit TOTP codes for aged Instagram and Threads accounts. Browser-only, no secret storage, and built for secure login verification.'
 const PAGE_KEYWORDS = [
   '2fa code generator',
   'totp generator',

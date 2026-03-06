@@ -23,6 +23,9 @@ export const metadata = buildPageMetadata({
   description:
     "Buy aged social media accounts (2010-2026) with OGE and 2FA verification. Secure inventory for Instagram, Threads, Facebook, X, Gmail, TikTok, Reddit and Snapchat.",
   path: "/",
+  languages: {
+    "en-US": "/",
+  },
 })
 
 const SCHEMA_GRAPH = {

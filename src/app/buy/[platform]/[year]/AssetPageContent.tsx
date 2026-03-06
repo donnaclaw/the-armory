@@ -2,38 +2,69 @@
 
 import { Check, Shield, ArrowRight } from "lucide-react"
 import { Button } from "@/components/ui/Button"
+import Link from "next/link"
+import { trackEvent } from "@/lib/analytics"
 
 interface AssetPageContentProps {
     platformTitle: string
     year: string
     intro: string
+    keywordFocus: string
+    keyPoints: string[]
+    h1: string
 }
 
-export function AssetPageContent({ platformTitle, year, intro }: AssetPageContentProps) {
+export function AssetPageContent({ platformTitle, year, intro, keywordFocus, keyPoints, h1 }: AssetPageContentProps) {
     const scrollToTop = () => {
         window.location.href = '/'
     }
 
     return (
         <div className="max-w-4xl mx-auto space-y-12">
-            {/* Breadcrumb-ish */}
-            <div className="flex items-center gap-2 text-xs font-bold text-[#4F46E5] uppercase tracking-widest">
-                <span>Specialized Inventory</span>
-                <span className="text-gray-700">/</span>
-                <span>{platformTitle}</span>
-                <span className="text-gray-700">/</span>
-                <span className="text-white">{year}</span>
-            </div>
+            <nav aria-label="Breadcrumb">
+                <ol className="flex items-center gap-2 text-xs font-bold text-[#4F46E5] uppercase tracking-widest">
+                    <li>
+                        <Link href="/" className="text-gray-500 hover:text-white transition-colors">Home</Link>
+                    </li>
+                    <li className="text-gray-700" aria-hidden="true">/</li>
+                    <li>
+                        <Link href={`/buy/${platformTitle === 'X/Twitter' ? 'x' : platformTitle.toLowerCase()}`} className="text-gray-500 hover:text-white transition-colors">
+                            {platformTitle}
+                        </Link>
+                    </li>
+                    <li className="text-gray-700" aria-hidden="true">/</li>
+                    <li className="text-white">{year}</li>
+                </ol>
+            </nav>
 
             {/* Hero Section */}
             <div className="space-y-6">
                 <h1 className="text-4xl md:text-6xl font-black text-white tracking-tighter uppercase leading-tight">
-                    Buy Aged <span className="text-[#4F46E5]">{platformTitle}</span> Accounts from <span className="text-[#4F46E5]">{year}</span>
+                    {h1.split(platformTitle).map((part, index, arr) => (
+                        <span key={index}>
+                            {part}
+                            {index < arr.length - 1 ? <span className="text-[#4F46E5]">{platformTitle}</span> : null}
+                        </span>
+                    ))}
                 </h1>
                 <p className="text-gray-400 text-lg md:text-xl leading-relaxed">
                     {intro}
                 </p>
             </div>
+
+            {/* Year-Specific SEO Value Block */}
+            <section className="bg-[#0f0f0f] border border-white/10 rounded-2xl p-8 space-y-4">
+                <h2 className="text-xl font-black text-white uppercase tracking-tighter">Year-specific trust signals</h2>
+                <p className="text-xs text-gray-500 uppercase tracking-widest font-bold">Primary keyword focus: {keywordFocus}</p>
+                <ul className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    {keyPoints.map((point, index) => (
+                        <li key={index} className="flex items-start gap-2 text-sm text-gray-300">
+                            <Check className="w-4 h-4 text-[#4F46E5] mt-0.5 shrink-0" />
+                            <span>{point}</span>
+                        </li>
+                    ))}
+                </ul>
+            </section>
 
             {/* Product Card */}
             <div className="bg-[#0f0f0f] border border-white/10 rounded-3xl p-8 md:p-12 relative overflow-hidden group">
@@ -69,7 +100,14 @@ export function AssetPageContent({ platformTitle, year, intro }: AssetPageConten
                             <div className="text-4xl font-black text-white">$Varies</div>
                             <div className="text-[10px] text-gray-500 uppercase tracking-widest font-bold">Contact for pricing</div>
                         </div>
-                        <Button className="w-full" onClick={() => window.open('https://t.me/luke_of', '_blank')}>
+                        <Button
+                            className="w-full"
+                            onClick={() => {
+                                const sanitizedPlatform = platformTitle.toLowerCase().replace('/', '_').replace(/\s+/g, '-')
+                                trackEvent("cta_telegram_click", { source: `buy_year_${sanitizedPlatform}_${year}_cta` })
+                                window.open('https://t.me/luke_of', '_blank', 'noopener,noreferrer')
+                            }}
+                        >
                             CONTACT AGENT
                             <ArrowRight className="w-4 h-4 ml-2" />
                         </Button>
