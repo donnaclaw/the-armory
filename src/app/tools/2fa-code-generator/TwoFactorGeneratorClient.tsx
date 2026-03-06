@@ -62,6 +62,24 @@ export default function TwoFactorGeneratorClient() {
   return (
     <main className="min-h-screen bg-[#0B0B0B] pt-32 pb-20 px-4">
       <div className="max-w-4xl mx-auto space-y-12">
+        <nav aria-label="Breadcrumb" className="pt-2">
+          <ol className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-gray-500">
+            <li>
+              <Link href="/" className="hover:text-white transition-colors">
+                Home
+              </Link>
+            </li>
+            <li aria-hidden="true">/</li>
+            <li>
+              <Link href="/tools" className="hover:text-white transition-colors">
+                Tools
+              </Link>
+            </li>
+            <li aria-hidden="true">/</li>
+            <li className="text-[#4F46E5]">2FA Generator</li>
+          </ol>
+        </nav>
+
         <div className="text-center space-y-4">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#4F46E5]/10 border border-[#4F46E5]/20 text-[#4F46E5] text-xs font-bold uppercase tracking-widest">
             <Lock className="w-3 h-3" />

@@ -48,6 +48,12 @@ export function Footer() {
                         <button onClick={(e) => handleNavigation(e, 'inventory')} className="text-gray-500 hover:text-[#4F46E5] transition-colors text-left w-fit">
                             Aged Gmail & More
                         </button>
+                        <Link href="/tools" className="text-gray-500 hover:text-[#4F46E5] transition-colors w-fit">
+                            Tools Hub
+                        </Link>
+                        <Link href="/tools/2fa-code-generator" className="text-gray-500 hover:text-[#4F46E5] transition-colors w-fit">
+                            2FA Code Generator
+                        </Link>
                     </nav>
                 </div>
 

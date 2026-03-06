@@ -71,6 +71,15 @@ export default function BlogIndex() {
                             <h3 className="text-2xl font-black text-white uppercase tracking-tighter">Custom Operational Audits</h3>
                         </div>
                         <p className="text-gray-400 max-w-md">Our lead architects provide specialized consulting for high-velocity social operations scaling beyond 1,000+ assets.</p>
+                        <TrackedLink
+                            href="/tools"
+                            eventName="blog_to_buy_click"
+                            eventProps={{ source: "blog_index_tools_hub" }}
+                            className="inline-flex items-center gap-2 text-xs font-black uppercase tracking-widest text-[#4F46E5] hover:text-white transition-colors"
+                        >
+                            Explore Tools Hub
+                            <ArrowRight className="w-3 h-3" />
+                        </TrackedLink>
                     </div>
                     <TrackedLink
                         href="https://t.me/luke_of"

@@ -29,6 +29,7 @@ export const metadata: Metadata = buildPageMetadata({
 
 export default function TwoFactorGeneratorPage() {
   const canonicalUrl = toAbsoluteUrl(PAGE_PATH)
+  const toolsUrl = toAbsoluteUrl('/tools')
 
   const softwareApplicationSchema = {
     '@context': 'https://schema.org',
@@ -67,12 +68,43 @@ export default function TwoFactorGeneratorPage() {
     keywords: PAGE_KEYWORDS.join(', '),
   }
 
+  const breadcrumbSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      {
+        '@type': 'ListItem',
+        position: 1,
+        name: 'Home',
+        item: toAbsoluteUrl('/'),
+      },
+      {
+        '@type': 'ListItem',
+        position: 2,
+        name: 'Tools',
+        item: toolsUrl,
+      },
+      {
+        '@type': 'ListItem',
+        position: 3,
+        name: '2FA Code Generator',
+        item: canonicalUrl,
+      },
+    ],
+  }
+
   return (
     <>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify(softwareApplicationSchema),
+        }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(breadcrumbSchema),
         }}
       />
       <TwoFactorGeneratorClient />

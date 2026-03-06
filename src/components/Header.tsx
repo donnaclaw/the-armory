@@ -43,6 +43,7 @@ export function Header() {
         { name: "OTHER PLATFORMS", targetId: "inventory" },
         { name: "ABOUT", href: "/about" },
         { name: "ALPHA ACADEMY", href: "/blog" },
+        { name: "TOOLS", href: "/tools" },
     ]
 
     const openSupport = () => {

@@ -310,6 +310,8 @@ export default async function BlogPost({ params }: PageProps) {
                         <TrackedLink href="/buy/facebook" className="text-xs text-gray-500 hover:text-[#4F46E5] transition-colors font-bold" eventName="blog_to_buy_click" eventProps={{ source: "blog_related_buy_facebook", slug }}>Buy Aged Facebook →</TrackedLink>
                         <TrackedLink href="/buy/gmail" className="text-xs text-gray-500 hover:text-[#4F46E5] transition-colors font-bold" eventName="blog_to_buy_click" eventProps={{ source: "blog_related_buy_gmail", slug }}>Buy Aged Gmail →</TrackedLink>
                         <TrackedLink href="/buy/x" className="text-xs text-gray-500 hover:text-[#4F46E5] transition-colors font-bold" eventName="blog_to_buy_click" eventProps={{ source: "blog_related_buy_x", slug }}>Buy Aged X/Twitter →</TrackedLink>
+                        <TrackedLink href="/tools" className="text-xs text-gray-500 hover:text-[#4F46E5] transition-colors font-bold" eventName="blog_to_buy_click" eventProps={{ source: "blog_related_tools_hub", slug }}>Tools Hub →</TrackedLink>
+                        <TrackedLink href="/tools/2fa-code-generator" className="text-xs text-gray-500 hover:text-[#4F46E5] transition-colors font-bold" eventName="blog_to_buy_click" eventProps={{ source: "blog_related_2fa_tool", slug }}>2FA Generator →</TrackedLink>
                     </div>
                 </div>
             </article>

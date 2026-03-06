@@ -16,6 +16,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     const baseUrl = SITE_URL
     const platforms = ['instagram', 'threads', 'facebook', 'tiktok', 'x', 'reddit', 'snapchat', 'gmail']
     const years = Array.from({ length: 2026 - 2010 + 1 }, (_, i) => (2010 + i).toString())
+    const toolsHubLastModified = new Date('2026-03-06T00:00:00.000Z')
     const twoFactorToolLastModified = new Date('2026-03-06T00:00:00.000Z')
 
     // Static Routes
@@ -25,6 +26,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
         { url: `${baseUrl}/blog`, lastModified: new Date(), changeFrequency: 'daily', priority: 0.9 },
         { url: `${baseUrl}/terms`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.5 },
         { url: `${baseUrl}/refund-policy`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.5 },
+        { url: `${baseUrl}/tools`, lastModified: toolsHubLastModified, changeFrequency: 'weekly', priority: 0.75 },
         { url: `${baseUrl}/tools/2fa-code-generator`, lastModified: twoFactorToolLastModified, changeFrequency: 'monthly', priority: 0.7 },
     ]
 
