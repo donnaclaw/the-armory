@@ -1782,5 +1782,120 @@ Choose the account that matches your role and process maturity, not just the che
             text: "CHOOSE THE RIGHT CUSTOM IG BASE",
             link: "/buy/instagram"
         }
+    },
+    "threads-dear-algo-2026-aged-custom-accounts": {
+        title: "Threads Dear Algo 2026: How Aged and Custom Accounts Get Better Reach",
+        slug: "threads-dear-algo-2026-aged-custom-accounts",
+        date: "Mar 7, 2026",
+        author: "Luke",
+        authorRole: "Lead Asset Architect at The Armory",
+        readTime: "9 min read",
+        icon: Zap,
+        topicCluster: "Threads Ecosystem",
+        slotWords: ["THREADS", "DEAR", "ALGO", "AGED"],
+        seo: {
+            metaTitle: "Threads Dear Algo 2026: Aged and Custom Account Playbook",
+            metaDescription: "Threads Dear Algo changed discovery in 2026. Learn a simple aged and custom account setup that improves reach, stability, and buyer intent.",
+            keywords: [
+                "threads dear algo aged accounts",
+                "threads dear algo update 2026",
+                "aged threads accounts",
+                "custom threads accounts",
+                "threads ranking signals",
+                "aged instagram linked threads",
+                "buy aged threads accounts"
+            ],
+            publishedAtISO: "2026-03-07T00:00:00.000Z",
+            modifiedAtISO: "2026-03-07T00:00:00.000Z"
+        },
+        keyFindings: [
+            "The Dear Algo update rewards cleaner topic signals and consistent behavior.",
+            "Aged and custom Threads accounts usually stabilize faster than fresh accounts in week one.",
+            "Best setup is simple: Threads for discovery, Instagram for proof and closing."
+        ],
+        intro: "Threads rolled out Dear Algo controls, and now random posting gets punished faster. If you sell through social, account quality matters more than ever. This guide shows a simple setup using aged and custom accounts.",
+        checklist: {
+            title: "Dear Algo Quick-Start Checklist",
+            items: [
+                "Pick one content lane before posting",
+                "Use one device and one proxy per account",
+                "Warm up with replies before hard promotion",
+                "Link discovery traffic to a trust profile on Instagram"
+            ]
+        },
+        productBridge: {
+            title: "THREADS + IG DISCOVERY STACK",
+            description: "Use aged/custom Threads for reach and aged IG for trust handoff.",
+            link: "/#inventory"
+        },
+        content: `## What Changed With Dear Algo
+Threads added Dear Algo controls so people can shape what they see more directly. This sounds small, but it changes how fast weak profiles lose reach.
+
+In plain terms, the feed now reacts faster to relevance and consistency. If your account jumps between random topics, distribution drops. If your account stays focused and gets real replies, distribution tends to hold better.
+
+For operators, this means account quality and behavior quality now work together. You cannot separate content strategy from account setup anymore.
+
+## Why Aged and Custom Accounts Matter More Now
+Fresh accounts can still work, but they are fragile in the first days. One bad login pattern, one aggressive posting burst, and reach can flatten.
+
+Aged and custom accounts usually start with a cleaner baseline:
+- older trust history
+- more stable behavior profile
+- easier first-week pacing
+
+That baseline helps when the algorithm is learning your lane. It does not guarantee success, but it gives you better odds.
+
+Start discovery from [aged Threads accounts](/buy/threads). Then connect trust and conversion through [aged Instagram accounts](/buy/instagram) so buyers have a stronger proof profile before they decide.
+
+## Simple Posting Model That Fits Dear Algo
+Keep this easy. Do not over-engineer.
+
+Day 1-2:
+- post one clear topic
+- reply to related creators
+- avoid hard-sell links
+
+Day 3-4:
+- keep same topic lane
+- test one CTA style
+- track reply depth, not just views
+
+Day 5-7:
+- increase volume slowly
+- route qualified users to your offer path
+- keep security stable (no random device switching)
+
+If you want less noise, separate account roles:
+- discovery account on Threads
+- proof account on Instagram
+- conversion handoff to your offer page
+
+This model is boring, but it works because signals stay clean.
+
+## Common Mistakes After the Update
+Most teams make the same four mistakes:
+1. Posting mixed topics on the same account.
+2. Chasing follower spikes instead of conversation quality.
+3. Changing proxy/device setup mid-week.
+4. Pushing direct offers too early.
+
+Fix those first. You will usually see better stability before you even change your content style.
+
+## Practical Buyer Rule
+If your goal is quick market testing, pick a clean custom or aged Threads account first. If your goal is trust and close rate, pair it with aged Instagram from day one.
+
+For budget-limited teams, one strong account pair beats a farm of weak accounts every time.
+
+The Dear Algo era is not about hacking reach. It is about giving the system clean signals consistently.`,
+        images: [
+            {
+                url: "/images/blog/hero_threads_final_clean_1771289218406.png",
+                caption: "Dear Algo era setup: Threads for discovery, Instagram for trust and close."
+            }
+        ],
+        cta: {
+            text: "BUILD A DEAR ALGO-READY ACCOUNT STACK",
+            link: "/#inventory"
+        }
     }
 }
