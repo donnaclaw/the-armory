@@ -4,10 +4,11 @@ import { AssetPageContent } from './AssetPageContent'
 import { buildPageMetadata, toAbsoluteUrl } from '@/lib/seo'
 import {
     BUY_PLATFORMS,
-    BUY_YEARS,
     getBuyYearSeoProfile,
     isValidBuyPlatform,
+    isValidBuyPlatformYear,
     isValidBuyYear,
+    getValidBuyYearsForPlatform,
 } from '@/lib/buy-seo-data'
 
 interface PageProps {
@@ -20,13 +21,15 @@ interface PageProps {
 export const dynamicParams = false
 
 export function generateStaticParams() {
-    return BUY_PLATFORMS.flatMap((platform) => BUY_YEARS.map((year) => ({ platform, year })))
+    return BUY_PLATFORMS.flatMap((platform) =>
+        (getValidBuyYearsForPlatform(platform) ?? []).map((year) => ({ platform, year }))
+    )
 }
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
     const { platform, year } = await params
 
-    if (!isValidBuyPlatform(platform) || !isValidBuyYear(year)) {
+    if (!isValidBuyPlatform(platform) || !isValidBuyYear(year) || !isValidBuyPlatformYear(platform, year)) {
         return { title: 'Not Found' }
     }
 
@@ -58,7 +61,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 export default async function Page({ params }: PageProps) {
     const { platform, year } = await params
 
-    if (!isValidBuyPlatform(platform) || !isValidBuyYear(year)) {
+    if (!isValidBuyPlatform(platform) || !isValidBuyYear(year) || !isValidBuyPlatformYear(platform, year)) {
         notFound()
     }
 
@@ -126,11 +129,20 @@ export default async function Page({ params }: PageProps) {
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(productSchema) }}
             />
             <AssetPageContent
+                platformSlug={seoProfile.platformSlug}
                 platformTitle={seoProfile.platformLabel}
                 year={year}
                 intro={seoProfile.introVariant}
                 keywordFocus={seoProfile.keywordFocus}
                 keyPoints={seoProfile.keyPoints}
+                trustSignal={seoProfile.trustSignal}
+                marketSignal={seoProfile.marketSignal}
+                riskControl={seoProfile.riskControl}
+                operationalChecklist={seoProfile.operationalChecklist}
+                buyerFitNotes={seoProfile.buyerFitNotes}
+                migrationNotes={seoProfile.migrationNotes}
+                adjacentYears={seoProfile.adjacentYears}
+                relatedGuides={seoProfile.relatedGuides}
                 h1={seoProfile.h1}
             />
         </main>

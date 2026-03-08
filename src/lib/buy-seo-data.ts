@@ -13,6 +13,17 @@ export type BuyPlatform = (typeof BUY_PLATFORMS)[number]
 
 export const BUY_YEARS = Array.from({ length: 2026 - 2010 + 1 }, (_, i) => String(2010 + i))
 
+export const BUY_PLATFORM_YEARS: Record<BuyPlatform, readonly string[]> = {
+  instagram: BUY_YEARS,
+  threads: BUY_YEARS.filter((year) => Number(year) >= 2023),
+  facebook: BUY_YEARS,
+  tiktok: BUY_YEARS.filter((year) => Number(year) >= 2018),
+  x: BUY_YEARS.filter((year) => Number(year) >= 2012),
+  reddit: BUY_YEARS.filter((year) => Number(year) >= 2012),
+  snapchat: BUY_YEARS.filter((year) => Number(year) >= 2015),
+  gmail: BUY_YEARS,
+}
+
 export const INVENTORY_REFRESH_ISO = "2026-03-06T00:00:00.000Z"
 
 interface PlatformConfig {
@@ -21,6 +32,7 @@ interface PlatformConfig {
   primaryIntent: string
   warmupAngle: string
   trustEdge: string
+  handoffFocus: string
   modifiedAtISO: string
 }
 
@@ -31,6 +43,7 @@ const PLATFORM_CONFIGS: Record<BuyPlatform, PlatformConfig> = {
     primaryIntent: "outreach and profile scaling",
     warmupAngle: "stabilize warm-up velocity across DMs and content",
     trustEdge: "legacy profile history that lowers early risk flags",
+    handoffFocus: "lock device, proxy, and recovery changes in one controlled session",
     modifiedAtISO: INVENTORY_REFRESH_ISO,
   },
   threads: {
@@ -39,6 +52,7 @@ const PLATFORM_CONFIGS: Record<BuyPlatform, PlatformConfig> = {
     primaryIntent: "discussion reach and creator growth",
     warmupAngle: "launch with safer first-week posting cadence",
     trustEdge: "IG-linked reputation that improves discovery confidence",
+    handoffFocus: "keep identity signals aligned with the paired Instagram asset",
     modifiedAtISO: INVENTORY_REFRESH_ISO,
   },
   facebook: {
@@ -47,6 +61,7 @@ const PLATFORM_CONFIGS: Record<BuyPlatform, PlatformConfig> = {
     primaryIntent: "marketplace and ads reliability",
     warmupAngle: "avoid restriction loops on early actions",
     trustEdge: "older account trails that improve policy tolerance",
+    handoffFocus: "finish security changes before any ad or Marketplace actions",
     modifiedAtISO: INVENTORY_REFRESH_ISO,
   },
   tiktok: {
@@ -55,6 +70,7 @@ const PLATFORM_CONFIGS: Record<BuyPlatform, PlatformConfig> = {
     primaryIntent: "creator growth and viral testing",
     warmupAngle: "reduce sandbox behavior on new sessions",
     trustEdge: "aged watch-history footprints that raise trust",
+    handoffFocus: "keep early posting cadence stable before scaling volume",
     modifiedAtISO: INVENTORY_REFRESH_ISO,
   },
   x: {
@@ -63,6 +79,7 @@ const PLATFORM_CONFIGS: Record<BuyPlatform, PlatformConfig> = {
     primaryIntent: "DM outreach and authority posting",
     warmupAngle: "control send-volume and avoid trust decay",
     trustEdge: "older interaction history for safer outreach volume",
+    handoffFocus: "stage DM volume across multiple days to preserve trust",
     modifiedAtISO: INVENTORY_REFRESH_ISO,
   },
   reddit: {
@@ -71,6 +88,7 @@ const PLATFORM_CONFIGS: Record<BuyPlatform, PlatformConfig> = {
     primaryIntent: "community seeding and traffic capture",
     warmupAngle: "pass subreddit thresholds with less friction",
     trustEdge: "older karma and activity patterns for faster acceptance",
+    handoffFocus: "mirror subreddit behavior norms before link-oriented activity",
     modifiedAtISO: INVENTORY_REFRESH_ISO,
   },
   snapchat: {
@@ -79,6 +97,7 @@ const PLATFORM_CONFIGS: Record<BuyPlatform, PlatformConfig> = {
     primaryIntent: "story distribution and influencer workflows",
     warmupAngle: "maintain session stability in the first 72 hours",
     trustEdge: "aged score history that helps behavioral consistency",
+    handoffFocus: "stagger first-week story and outreach actions to avoid spikes",
     modifiedAtISO: INVENTORY_REFRESH_ISO,
   },
   gmail: {
@@ -87,8 +106,45 @@ const PLATFORM_CONFIGS: Record<BuyPlatform, PlatformConfig> = {
     primaryIntent: "email infrastructure and account recovery",
     warmupAngle: "protect sender reputation from day one",
     trustEdge: "older mailbox reputation for cleaner deliverability",
+    handoffFocus: "secure recovery channels and sender posture before scaling usage",
     modifiedAtISO: INVENTORY_REFRESH_ISO,
   },
+}
+
+const PLATFORM_RELATED_GUIDES: Record<BuyPlatform, { title: string; slug: string }[]> = {
+  instagram: [
+    { title: "The 2026 OFM Survival Guide", slug: "ofm-survival-guide-2026" },
+    { title: "OGE vs. Non-OGE: Security Math", slug: "oge-security-math" },
+    { title: "The 24-Hour Warmup Rule", slug: "warmup-rule-2026" },
+  ],
+  threads: [
+    { title: "Scaling AI-Influencers on Threads", slug: "threads-ai-influencer" },
+    { title: "Threads DM Automation Protocols", slug: "threads-dm-automation" },
+    { title: "Threads vs. X: Which Converts Better?", slug: "threads-vs-x-ofm" },
+  ],
+  facebook: [
+    { title: "OGE Security Mastery", slug: "oge-security-mastery" },
+    { title: "The 24-Hour Warmup Rule", slug: "warmup-rule-2026" },
+  ],
+  tiktok: [
+    { title: "The 24-Hour Warmup Rule", slug: "warmup-rule-2026" },
+    { title: "Proxy Selection Guide", slug: "proxy-selection-2012" },
+  ],
+  x: [
+    { title: "Threads vs. X: Which Converts Better?", slug: "threads-vs-x-ofm" },
+    { title: "Shadowban Recovery Guide", slug: "shadowban-recovery-guide" },
+  ],
+  reddit: [
+    { title: "Proxy Selection Guide", slug: "proxy-selection-2012" },
+    { title: "OGE Security Mastery", slug: "oge-security-mastery" },
+  ],
+  snapchat: [
+    { title: "The 24-Hour Warmup Rule", slug: "warmup-rule-2026" },
+  ],
+  gmail: [
+    { title: "2FA Best Practices", slug: "2fa-best-practices-professional" },
+    { title: "OGE Security Mastery", slug: "oge-security-mastery" },
+  ],
 }
 
 interface YearSignal {
@@ -238,11 +294,27 @@ const PLATFORM_KEY_POINTS: Record<BuyPlatform, string[]> = {
 
 export interface BuyYearSeoProfile {
   platform: BuyPlatform
+  platformSlug: BuyPlatform
   platformLabel: string
   year: string
   keywordFocus: string
   introVariant: string
   keyPoints: string[]
+  trustSignal: string
+  marketSignal: string
+  riskControl: string
+  operationalChecklist: string[]
+  buyerFitNotes: string[]
+  migrationNotes: string[]
+  adjacentYears: {
+    year: string
+    href: string
+    label: string
+  }[]
+  relatedGuides: {
+    title: string
+    slug: string
+  }[]
   modifiedAtISO: string
   metaTitle: string
   metaDescription: string
@@ -320,11 +392,26 @@ export function getBuyPlatformModifiedAtISO(platformInput: string): string | nul
   return PLATFORM_CONFIGS[platform].modifiedAtISO
 }
 
+export function getValidBuyYearsForPlatform(platformInput: string): readonly string[] | null {
+  const platform = normalizePlatform(platformInput)
+  if (!platform) return null
+  return BUY_PLATFORM_YEARS[platform]
+}
+
+export function isValidBuyPlatformYear(platformInput: string, yearInput: string): boolean {
+  const years = getValidBuyYearsForPlatform(platformInput)
+  return years ? years.includes(yearInput) : false
+}
+
 export function getBuyYearSeoProfile(platformInput: string, yearInput: string): BuyYearSeoProfile | null {
   const platform = normalizePlatform(platformInput)
   const year = normalizeYear(yearInput)
 
   if (!platform || !year) {
+    return null
+  }
+
+  if (!BUY_PLATFORM_YEARS[platform].includes(year)) {
     return null
   }
 
@@ -334,6 +421,17 @@ export function getBuyYearSeoProfile(platformInput: string, yearInput: string): 
   const keyPointPool = PLATFORM_KEY_POINTS[platform]
   const firstPoint = keyPointPool[yearIndex % keyPointPool.length]
   const secondPoint = keyPointPool[(yearIndex + 1) % keyPointPool.length]
+  const validPlatformYears = BUY_PLATFORM_YEARS[platform]
+  const yearPosition = validPlatformYears.indexOf(year)
+
+  const adjacentYears = [-1, 1]
+    .map((offset) => validPlatformYears[yearPosition + offset])
+    .filter((candidate): candidate is string => Boolean(candidate))
+    .map((adjacentYear) => ({
+      year: adjacentYear,
+      href: `/buy/${platform}/${adjacentYear}`,
+      label: YEAR_SIGNALS[adjacentYear].marketSignal,
+    }))
 
   const introTemplates = [
     `Aged ${platformConfig.metaLabel} accounts from ${year} still carry ${yearSignal.trustSignal}. For teams focused on ${platformConfig.primaryIntent}, this vintage offers ${platformConfig.trustEdge}. ${yearSignal.marketSignal}, and the safest path is to ${platformConfig.warmupAngle}.`,
@@ -343,6 +441,7 @@ export function getBuyYearSeoProfile(platformInput: string, yearInput: string): 
 
   const profile: BuyYearSeoProfile = {
     platform,
+    platformSlug: platform,
     platformLabel: platformConfig.displayLabel,
     year,
     keywordFocus: `buy aged ${platformConfig.metaLabel.toLowerCase()} accounts ${year}`,
@@ -353,6 +452,26 @@ export function getBuyYearSeoProfile(platformInput: string, yearInput: string): 
       firstPoint,
       secondPoint,
     ],
+    trustSignal: yearSignal.trustSignal,
+    marketSignal: yearSignal.marketSignal,
+    riskControl: yearSignal.riskControl,
+    operationalChecklist: [
+      `Run ownership handoff in one clean pass: ${platformConfig.handoffFocus}.`,
+      `During the first week, ${platformConfig.warmupAngle} and avoid abrupt action spikes.`,
+      `Keep login geography and session rhythm consistent to preserve ${yearSignal.trustSignal}.`,
+    ],
+    buyerFitNotes: [
+      `In market terms, this vintage is ${yearSignal.marketSignal} and a practical fit for teams focused on ${platformConfig.primaryIntent}.`,
+      `This vintage works best when you need ${platformConfig.trustEdge} instead of raw day-one volume.`,
+      `Compared with fresh signups, ${year} inventory gives more predictable rollout quality when controls are respected.`,
+    ],
+    migrationNotes: [
+      `Before scale, rotate recovery credentials and verify 2FA ownership with test sign-ins.`,
+      `Map account behavior to your production workflow gradually instead of switching to full velocity on day one.`,
+      `Document proxy, device, and timezone settings for repeatability across all accounts in this vintage.`,
+    ],
+    adjacentYears,
+    relatedGuides: PLATFORM_RELATED_GUIDES[platform],
     modifiedAtISO: platformConfig.modifiedAtISO,
     metaTitle: buildTitle(platformConfig.metaLabel, year),
     metaDescription: buildDescription(platformConfig.metaLabel, year),
